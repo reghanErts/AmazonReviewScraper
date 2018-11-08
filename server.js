@@ -27,3 +27,5 @@ io.on("connection", function(){
 server.listen(80, function() {
 	console.log("Server with socket.io is ready.");
 });
+
+// maybe have the clients be able to talk to  a help line?
