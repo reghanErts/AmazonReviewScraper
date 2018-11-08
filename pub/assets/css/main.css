@@ -1,0 +1,75 @@
+* {
+    text-align: center;
+}
+
+body {
+    background-image: url("../img/bg.jpeg");
+    background-size: 100%;
+    background-repeat: repeat;
+    color:#fff;
+}
+
+#bgc {
+    background-color:rgba(36,56,70, .75);
+}
+
+p {
+    width:60%;
+    margin: auto;
+}
+
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    color: #0e406b;
+    float: center;
+    width: auto;
+}
+
+thead {
+    background-color: #223177;
+    color: #ffffff;
+}
+
+td, th {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+/* https://stackoverflow.com/questions/17388817/tr-background-change-with-nth-child-changes-thead-and-tfoot-as-well */
+tbody tr:nth-child(even){background-color: #f2f2f2;}
+tbody tr:nth-child(odd){background-color: #A1A1A1;}
+
+tbody tr:hover {background-color: #00f800;}
+
+/* https://www.w3schools.com/howto/howto_js_topnav_responsive.asp */
+.Navigation {
+    overflow: hidden;
+    color:#000;
+    background-color: #243846;
+}
+
+.Navigation a {
+    color:#FFF;
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.Navigation a:hover {
+    background-color: #fe0166;
+}
+
+.active {
+    background-color: #009700;
+    color: white;
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.Navigation .icon {
+    display: none;
+}
