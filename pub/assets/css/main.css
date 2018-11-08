@@ -9,6 +9,22 @@ body {
     color:#fff;
 }
 
+.pink {
+    color: #fe0166;
+}
+
+.lblue {
+    color: #1d9e9d;
+}
+
+.yellow {
+    color: #e4eb05;
+}
+
+.pink, .lblue, .yellow {
+    display: inline;
+}
+
 #bgc {
     background-color:rgba(36,56,70, .75);
 }
