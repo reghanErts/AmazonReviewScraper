@@ -1,0 +1,14 @@
+easy
+amazon
+reviews
+
+(EAR)
+
+Listen to what people are saying.
+
+Navigation sections:
+    Home
+    Search
+    Disclaimer
+    About the Creators
+    
