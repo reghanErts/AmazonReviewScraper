@@ -23,3 +23,7 @@ io.on("connection", function(){
         console.log(nameForSocket[socket.id]+"disconnected");
     })
 });
+
+server.listen(80, function() {
+	console.log("Server with socket.io is ready.");
+});
