@@ -1,8 +1,8 @@
-Favicon from:
-	https://www.pexels.com/photo/boy-child-clouds-kid-346796/
-
 bg from:
 	https://www.pexels.com/photo/assorted-coloured-plastic-dinosaur-toys-970206/
+
+Favicon from:
+	https://www.pexels.com/photo/boy-child-clouds-kid-346796/
 
 Learn picture:
 	https://www.pexels.com/photo/letter-blocks-247819/
