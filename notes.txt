@@ -1,2 +1,4 @@
 https://www.amazon.com/Critical-Cycles-Harper-Single-Speed-Commuter/dp/B078FHCDZ5/ref=sr_1_5?ie=UTF8&qid=1541687651&sr=8-5&keywords=bike
 https://www.amazon.com/Critical-Cycles-Harper-Single-Speed-Commuter/dp/B078FHCDZ5/ref=sr_1_5?ie=UTF8&qid=1541687651&sr=8-5&keywords=bike#customerReviews
+
+Python portion of Scraper from: https://www.scrapehero.com/how-to-scrape-amazon-product-reviews/
