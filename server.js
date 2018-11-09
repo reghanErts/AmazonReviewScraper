@@ -21,8 +21,6 @@ app.get('/scrape',function(req,res){
 
 });
 
-app.listen('8081');
-exports = module.exports = app;
 var nameForSocket = [];
 
 io.on("connection", function(){
@@ -37,4 +35,6 @@ server.listen(80, function() {
 	console.log("Server with socket.io is ready.");
 });
 
+app.listen('8081');
+exports = module.exports = app;
 // maybe have the clients be able to talk to  a help line?
