@@ -13,7 +13,7 @@ function writeToFile(text) { //function for writing to machine
 function uniq(array) { //function for removing duplicate ASINS
     return array.sort().filter(function (item, pos, self) {
         return !pos || item != self[pos - 1];
-    })
+    });
 }
 
 function getPath() { //returns the path to the project directory
