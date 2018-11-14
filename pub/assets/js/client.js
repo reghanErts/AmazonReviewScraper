@@ -1,5 +1,7 @@
 // Cole Bornemann
 
+var socket = io();
+
 function updateGUI(dataFromServer) {
     // Clears the previous table and standings.
     $("#searchResults").empty();
@@ -56,6 +58,21 @@ function updateGUI(dataFromServer) {
 }
 
 function setUpEventHandlers() {
+    $("#searchForm").submit(function(event) {
+        event.preventDefault();
+		socket.emit("findItem", $("#searchText").val(), function(dataFromServer) {
+            // If the JSON that comes back contains a bool that's true, go to the 
+            console.log("Searching.");
+			if(boolValue === true) {
+                // Clear the serach field.
+                $("#searchText").val("");
+                // Update the table.
+                updateGUI(dataFromServer);
+			} else {
+
+            }
+		});
+	});
 }
 
 $(setUpEventHandlers);
