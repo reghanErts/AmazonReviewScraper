@@ -1,7 +1,7 @@
 var express = require("express");
 
 var app = express();
-var fs = reqire('fs');
+var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
 
@@ -18,9 +18,8 @@ var sanitizeHtml = require("sanitize-html");
 app.use(express.static("pub"));
 
 //linear model
-import {
-    RandomForestRegression as RFRegression
-} from 'ml-random-forest';
+//import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
+ var RFRegression = require('ml-random-forest').RandomForestRegression;
 
 var dataset = [
     [73, 80, 75, 152],
@@ -68,6 +67,7 @@ var options = {
 var regression = new RFRegression(options);
 regression.train(trainingSet, predictions);
 var result = regression.predict(trainingSet);
+console.log(result);
 
 app.get('/scrape',function(req,res){
     //The URL we will scrape from- the example URL
