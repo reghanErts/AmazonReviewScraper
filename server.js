@@ -3,7 +3,6 @@ var express = require("express");
 var app = express();
 var fs = require('fs');
 var request = require('request');
-var cheerio = require('cheerio');
 
 var http = require("http");
 
