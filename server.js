@@ -22,7 +22,8 @@ app.use(express.static("pub"));
  var RFRegression = require('ml-random-forest').RandomForestRegression;
 
 var dataset = [
-    [73, 80, 75, 152],
+    //number of times the word is used 
+    [2, 5, 75, 152],
     [93, 88, 93, 185],
     [89, 91, 90, 180],
     [96, 98, 100, 196],
