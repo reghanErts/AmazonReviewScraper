@@ -61,15 +61,17 @@ function setUpEventHandlers() {
     $("#searchForm").submit(function(event) {
         event.preventDefault();
 		socket.emit("findItem", $("#searchText").val(), function(dataFromServer) {
-            // If the JSON that comes back contains a bool that's true, go to the 
             console.log("Searching.");
-			if(boolValue === true) {
+            // If the JSON that comes back contains a bool that's true.
+			if(dataFromServer != 'null') {
+                // Clear Error thing.
+                $("#searchError").val("");
                 // Clear the serach field.
                 $("#searchText").val("");
                 // Update the table.
                 updateGUI(dataFromServer);
 			} else {
-
+                $("#searchError").val("There was an error communicating with the server. Please try again.");
             }
 		});
 	});
