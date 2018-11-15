@@ -80,8 +80,6 @@ app.get('/scrape',function(req,res){
       request(url, function(error, response, html){
           //check errors first
         if(!error){
-            //use cheerio lib.on returned html which will give jQuery functionality
-            var $ = cheerio.load(html);
             // define vars captures
             var title, release, rating;
             var json = {title:"", release:"", rating:""};
