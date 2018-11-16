@@ -4,6 +4,7 @@
   "description": "Scrape le Web.",
   "main": "server.js",
   "dependencies": {
+    "dotjs": "^0.2.0",
     "express": "^4.16.4",
     "ml-random-forest": "^1.0.3",
     "mongodb": "^3.1.9",
