@@ -109,6 +109,10 @@ io.on("connection", function(){
     socket.on("disconnect",function(){
         console.log(nameForSocket[socket.id]+"disconnected");
     })
+
+    socket.on("findItem", function(req, res) {
+        console.log(req);
+    })
 });
 
 server.listen(80, function() {
