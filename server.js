@@ -14,7 +14,24 @@ var sanitizeHtml = require("sanitize-html");
 
 app.use(express.static("pub"));
 
-//linear model
+var myArray = [["y  co nd alll coool"]];
+
+for (var i = 0; i < myArray.length; i++) {
+    for (var j = 0; j < myArray[i].length; j++) {
+        console.log(myArray[i][j]);
+        /*if(typeof myArray[j] === "undefined"){
+            myArray[j]=1;
+        }
+        else{
+            myArray[j]++;
+        }*/
+    }
+}
+
+for( var i in myArray){
+    console.log(i +" is "+ myArray[i]);
+}
+
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
 
