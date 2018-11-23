@@ -14,7 +14,7 @@ var sanitizeHtml = require("sanitize-html");
 
 app.use(express.static("pub"));
 
-var myArray = [["you are  coll and all c0ol"]];
+var myArray = [["you are  coll and all cool"]];
 
 for (var i = 0; i < myArray.length; i++) {
     for (var j = 0; j < myArray[i].length; j++) {
