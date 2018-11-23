@@ -5,7 +5,6 @@
   "main": "server.js",
   "author": "Scotch",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.4",
     "is-any-array": "0.0.3",
     "median-quickselect": "^1.0.1",
