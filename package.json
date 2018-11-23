@@ -5,6 +5,7 @@
   "main": "server.js",
   "author": "Scotch",
   "dependencies": {
+    "domelementtype": "^1.2.1",
     "express": "^4.16.4",
     "is-any-array": "0.0.3",
     "median-quickselect": "^1.0.1",
