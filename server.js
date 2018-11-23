@@ -14,17 +14,17 @@ var sanitizeHtml = require("sanitize-html");
 
 app.use(express.static("pub"));
 
-var myArray = [["you are  coll and all cool"]];
+var myArray = [["you", "are" ,"cool", "and" ,"all", "cool"],["are you even listening"]];
 
 for (var i = 0; i < myArray.length; i++) {
     for (var j = 0; j < myArray[i].length; j++) {
         console.log(myArray[i][j]);
-        /*if(typeof myArray[j] === "undefined"){
-            myArray[j]=1;
+        if(typeof myArray[i][j] === "undefined"){
+            myArray[i][j]=1;
         }
         else{
-            myArray[j]++;
-        }*/
+            myArray[i][j]++;
+        }
     }
 }
 
