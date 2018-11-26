@@ -14,23 +14,10 @@ var sanitizeHtml = require("sanitize-html");
 
 app.use(express.static("pub"));
 
-var myArray = [["you", "are" ,"cool", "and" ,"all", "cool"],["are you even listening"]];
+// get review array-> find review_text-> split the long 
+//string into an array of strings to find the word count.
+// from the exampledata.json 
 
-/*for (var i = 0; i < myArray.length; i++) {
-    for (var j = 0; j < myArray[i].length; j++) {
-        console.log(myArray[i][j]);
-        if(typeof myArray[i][j] === "undefined"){
-            myArray[i][j]=1;
-        }
-        else{
-            myArray[i][j]++;
-        }
-    }
-}
-
-for( var a in myArray){
-    console.log(a +" is "+ myArray[a]);
-}*/
 function compressArray(original) {
  
 	var compressed = [];
@@ -65,37 +52,40 @@ function compressArray(original) {
 var testArray = new Array("you", "are", "cool", "and", "all", "cool");
 var newArray = compressArray(testArray);
 console.log(newArray);
+for (var myCount in newArray) {
+    console.log(myCount + " is " + newArray[myCount]);
+}
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
 
 var dataset = [
     //number of times the word is used 
-    [2, 5, 75, 152],
-    [93, 88, 93, 185],
-    [89, 91, 90, 180],
-    [96, 98, 100, 196],
-    [73, 66, 70, 142],
-    [53, 46, 55, 101],
-    [69, 74, 77, 149],
-    [47, 56, 60, 115],
-    [87, 79, 90, 175],
-    [79, 70, 88, 164],
-    [69, 70, 73, 141],
-    [70, 65, 74, 141],
-    [93, 95, 91, 184],
-    [79, 80, 73, 152],
-    [70, 73, 78, 148],
-    [93, 89, 96, 192],
-    [78, 75, 68, 147],
-    [81, 90, 93, 183],
-    [88, 92, 86, 177],
-    [78, 83, 77, 159],
-    [82, 86, 90, 177],
-    [86, 82, 89, 175],
-    [78, 83, 85, 175],
-    [76, 83, 71, 149],
-    [96, 93, 95, 192]
+    [2, 120, 75, 1.2],
+    [2, 88, 93, 2.3],
+    [2, 91, 90, 4.6],
+    [2, 98, 100, 3.5],
+    [2, 66, 70, 3.3],
+    [2, 46, 55, 4.6],
+    [2, 74, 77, 2.1],
+    [2, 56, 60, 3.5],
+    [2, 79, 90, 3.6],
+    [2, 70, 88, 5.0],
+    [2, 70, 73, 3.5],
+    [2, 65, 74, 3.5],
+    [2, 95, 91, 3.4],
+    [2, 80, 73, 4.7],
+    [2, 73, 78, 2.6],
+    [2, 89, 96, 4.5],
+    [2, 75, 68, 3.8],
+    [2, 90, 93, 3.8],
+    [2, 92, 86, 1.1],
+    [2, 83, 77, 4.1],
+    [2, 86, 90, 2.2],
+    [2, 82, 89, 3.2],
+    [2, 83, 85, 3.2],
+    [2, 83, 71, 3.6],
+    [2, 93, 95, 4]
 ];
 
 var trainingSet = new Array(dataset.length);
@@ -137,6 +127,4 @@ server.listen(80, function() {
 	console.log("Server with socket.io is ready.");
 });
 
-app.listen('8081');
-exports = module.exports = app;
 // maybe have the clients be able to talk to  a help line?
