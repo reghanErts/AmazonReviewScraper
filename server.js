@@ -67,7 +67,7 @@ var options = {
 var regression = new RFRegression(options);
 regression.train(trainingSet, predictions);
 var result = regression.predict(trainingSet);
-console.log(result);
+//console.log(result);
 
 app.get('/scrape',function(req,res){
     //The URL we will scrape from- the example URL
@@ -110,8 +110,9 @@ io.on("connection", function(){
         console.log(nameForSocket[socket.id]+"disconnected");
     })
 
-    socket.on("findItem", function(req, res) {
-        console.log(req);
+    socket.on("findItem", function(data) {
+        console.log(data);
+        console.log("Callback.");
     })
 });
 
