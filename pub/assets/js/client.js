@@ -59,6 +59,7 @@ function updateGUI(dataFromServer) {
 
 function setUpEventHandlers() {
     $("#searchForm").submit(function(event) {
+        console.log("Shouldn't be.");
         event.preventDefault();
 		socket.emit("findItem", $("#searchText").val(), function(dataFromServer) {
             console.log("Searching.");
