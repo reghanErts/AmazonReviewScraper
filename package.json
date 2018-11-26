@@ -4,6 +4,10 @@
   "description": "Scrape le web.",
   "main": "server.js",
   "author": "Scotch",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "domelementtype": "^1.2.1",
@@ -19,6 +23,7 @@
     "ml-matrix": "^5.2.0",
     "ml-random-forest": "^1.0.3",
     "mongodb": "^3.1.10",
+    "nodemon": "^1.18.6",
     "random-js": "^1.0.8",
     "request": "^2.88.0",
     "sanitize-html": "^1.19.1",
