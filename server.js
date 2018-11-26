@@ -52,9 +52,8 @@ function compressArray(original) {
 var testArray = new Array("you", "are", "cool", "and", "all", "cool");
 var newArray = compressArray(testArray);
 console.log(newArray);
-for (var myCount in newArray) {
-    console.log(myCount + " is " + newArray[myCount]);
-}
+
+
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
