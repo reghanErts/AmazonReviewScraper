@@ -110,7 +110,7 @@ var result = regression.predict(trainingSet);
 
 var nameForSocket = [];
 
-io.on("connection", function(){
+io.on("connection", function(socket){
     console.log("someone connected");
 
     socket.on("disconnect",function(){
