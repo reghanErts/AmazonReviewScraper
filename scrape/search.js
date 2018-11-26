@@ -53,3 +53,4 @@ function runItAll() { //HTML is scraped from the search results of the keyword
     });
 }
 $(runItAll);
+//TO DO: Add a scrape of the product image we're predicting the review for
