@@ -1,34 +1,26 @@
 {
-  "name": "amazonreviewscraper",
-  "version": "1.0.0",
-  "description": "Scrape le Web.",
+  "name": "node-web-scrape",
+  "version": "0.0.1",
+  "description": "Scrape le web.",
   "main": "server.js",
+  "author": "Scotch",
   "dependencies": {
+    "domelementtype": "^1.2.1",
     "express": "^4.16.4",
+    "is-any-array": "0.0.3",
+    "median-quickselect": "^1.0.1",
+    "ml-array-max": "^1.1.1",
+    "ml-array-mean": "^1.1.1",
+    "ml-array-median": "^1.1.1",
+    "ml-array-min": "^1.1.1",
+    "ml-array-rescale": "^1.2.1",
+    "ml-cart": "^1.0.8",
+    "ml-matrix": "^5.2.0",
     "ml-random-forest": "^1.0.3",
-    "mongodb": "^3.1.9",
-    "nodemon": "^1.18.6",
+    "mongodb": "^3.1.10",
+    "random-js": "^1.0.8",
     "request": "^2.88.0",
     "sanitize-html": "^1.19.1",
     "socket.io": "^2.1.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reghanErts/AmazonReviewScraper.git"
-  },
-  "keywords": [
-    "Amazon",
-    "Filter"
-  ],
-  "author": "Cole, Reghan, Ryan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/reghanErts/AmazonReviewScraper/issues"
-  },
-  "homepage": "https://github.com/reghanErts/AmazonReviewScraper#readme"
+  }
 }

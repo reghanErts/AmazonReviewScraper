@@ -1,8 +1,6 @@
 var express = require("express");
 
 var app = express();
-var fs = require('fs');
-var request = require('request');
 
 var http = require("http");
 
@@ -16,7 +14,58 @@ var sanitizeHtml = require("sanitize-html");
 
 app.use(express.static("pub"));
 
-//linear model
+var myArray = [["you", "are" ,"cool", "and" ,"all", "cool"],["are you even listening"]];
+
+/*for (var i = 0; i < myArray.length; i++) {
+    for (var j = 0; j < myArray[i].length; j++) {
+        console.log(myArray[i][j]);
+        if(typeof myArray[i][j] === "undefined"){
+            myArray[i][j]=1;
+        }
+        else{
+            myArray[i][j]++;
+        }
+    }
+}
+
+for( var a in myArray){
+    console.log(a +" is "+ myArray[a]);
+}*/
+function compressArray(original) {
+ 
+	var compressed = [];
+	// make a copy of the input array
+	var copy = original.slice(0);
+ 
+	// first loop goes over every element
+	for (var i = 0; i < original.length; i++) {
+ 
+		var myCount = 0;	
+		// loop over every element in the copy and see if it's the same
+		for (var w = 0; w < copy.length; w++) {
+			if (original[i] == copy[w]) {
+				// increase amount of times duplicate is found
+				myCount++;
+				// sets item to undefined
+				delete copy[w];
+			}
+		}
+ 
+		if (myCount > 0) {
+			var a = new Object();
+			a.value = original[i];
+			a.count = myCount;
+			compressed.push(a);
+		}
+	}
+ 
+	return compressed;
+};
+
+var testArray = new Array("you", "are", "cool", "and", "all", "cool");
+var newArray = compressArray(testArray);
+console.log(newArray);
+
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
 
@@ -69,37 +118,6 @@ regression.train(trainingSet, predictions);
 var result = regression.predict(trainingSet);
 //console.log(result);
 
-app.get('/scrape',function(req,res){
-    //The URL we will scrape from- the example URL
-      url = 'http://www.imdb.com/title/tt1229340/';
-
-      // The structureof our request call
-      // The first parameter is our URL
-      // The callback function takes 3 params, an error, response status code and the html
-
-      request(url, function(error, response, html){
-          //check errors first
-        if(!error){
-            // define vars captures
-            var title, release, rating;
-            var json = {title:"", release:"", rating:""};
-
-            //use unique header class as a start
-            $('.header').filter(function(){
-                //store the data filtered into a var so we can use later
-                var data= $(this);
-                 // In examining the DOM we notice that the title rests within the first child element of the header tag. 
-                 // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-
-                 title = data.children().first().text();
-
-                 // Once we have our title, we'll store it to the our json object.
-
-                 json.title = title;
-            });
-        }
-      });
-});
 
 var nameForSocket = [];
 
