@@ -54,19 +54,16 @@ var newArray = compressArray(testArray);
 console.log(newArray);
 
 
-
-
-//var reviewTest = "\\scrape\\ExampleData.json";
 var fs = require('fs');
 var data = fs.readFileSync('.\\scrape\\ExampleData.json', 'utf8');
-var words = JSON.parse(data);
+var reviewText = JSON.parse(data);
 var bodyparser = require('body-parser');
-console.log(words[5]);
+//console.log(reviewText[5]);
 
-//console.log(reviewTest[4]);
-
-//for(var i = 0; i < )
-
+for(var i = 0; i < (reviewText[0].reviews[i]).length; i++ ){
+    var process = reviewText[0].reviews[i].review_text;
+    console.log(process);
+}
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
