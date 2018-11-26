@@ -59,11 +59,10 @@ function updateGUI(dataFromServer) {
 
 function setUpEventHandlers() {
     $("#searchForm").submit(function(event) {
-        console.log("Shouldn't be.");
         event.preventDefault();
 		socket.emit("findItem", $("#searchText").val(), function(dataFromServer) {
             console.log("Searching.");
-            // If the JSON that comes back contains a bool that's true.
+            // If the JSON comes back that's good.
 			if(dataFromServer != 'null') {
                 // Clear Error thing.
                 $("#searchError").val("");
