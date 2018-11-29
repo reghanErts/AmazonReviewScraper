@@ -49,9 +49,9 @@ function compressArray(original) {
 	return compressed;
 };
 
-var testArray = new Array("you", "are", "cool", "and", "all", "cool");
+/*var testArray = new Array("you", "are", "cool", "and", "all", "cool");
 var newArray = compressArray(testArray);
-console.log(newArray);
+console.log(newArray);*/
 
 
 var fs = require('fs');
@@ -67,15 +67,30 @@ var bodyparser = require('body-parser');
     }
 }*/
 //Note: some products do not have a name.
-
+ var newArray = []; 
+ var news = [];
 for(var i = 0; i < reviewText.length; i++ ){
     for( var j = 0; j < reviewText[i].reviews.length; j++) {
 //    var c = reviewText[i].reviews;
  //   console.log(c);
-    var process = reviewText[i].reviews[j].review_text;
-    console.log(process);
+        var process = reviewText[i].reviews[j].review_text;
+        // prints the review text only
+        //console.log(process);
+        var wordSplit = process.split(" ");
+         // splits the long output string into single strings so my compressArray can process it
+        //console.log(wordSplit);
+        newArray = compressArray(wordSplit);
+        // does the count but processes each review text seperately and doesnt add them all together 
+        console.log(newArray);
+        //news= newArray.concat(compressArray(wordSplit));
+        // trying to concatinate them all together to get one list
+        for (var a = 0; a < newArray.length; a++){
+            var total = newArray.concat(compressArray(wordSplit));
+            console.log(total);
+        } 
     }
 }
+//console.log(news);
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
