@@ -58,11 +58,23 @@ var fs = require('fs');
 var data = fs.readFileSync('.\\scrape\\ExampleData.json', 'utf8');
 var reviewText = JSON.parse(data);
 var bodyparser = require('body-parser');
-//console.log(reviewText[5]);
 
-for(var i = 0; i < (reviewText[0].reviews[i]).length; i++ ){
-    var process = reviewText[0].reviews[i].review_text;
+//console.log(reviewText[0].reviews);
+/*for (var i = 0; i < reviewText.length; i++) {
+    for (var j = 0; j < reviewText[i].reviews.length; j++) {
+        var t = reviewText[i].reviews[j].review_text;
+        console.log(t);
+    }
+}*/
+//Note: some products do not have a name.
+
+for(var i = 0; i < reviewText.length; i++ ){
+    for( var j = 0; j < reviewText[i].reviews.length; j++) {
+//    var c = reviewText[i].reviews;
+ //   console.log(c);
+    var process = reviewText[i].reviews[j].review_text;
     console.log(process);
+    }
 }
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
