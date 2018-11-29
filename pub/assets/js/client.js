@@ -64,7 +64,7 @@ function setUpEventHandlers() {
             console.log("Searching.");
             // If the JSON comes back that's good.
 			if(dataFromServer != 'null') {
-                // Clear Error thing.
+                // Clear Error field.
                 $("#searchError").val("");
                 // Clear the serach field.
                 $("#searchText").val("");
