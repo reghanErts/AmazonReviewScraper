@@ -49,9 +49,10 @@ function compressArray(original) {
 	return compressed;
 };
 
-/*var testArray = new Array("you", "are", "cool", "and", "all", "cool");
+var testArray = new Array("you", "are", "cool", "and", "all", "cool");
 var newArray = compressArray(testArray);
-console.log(newArray);*/
+console.log(newArray);
+
 
 var fs = require('fs');
 var data = fs.readFileSync('.\\scrape\\ExampleData.json', 'utf8');
@@ -59,36 +60,28 @@ var reviewText = JSON.parse(data);
 var bodyparser = require('body-parser');
 
 //console.log(reviewText[0].reviews);
+/*for (var i = 0; i < reviewText.length; i++) {
+    for (var j = 0; j < reviewText[i].reviews.length; j++) {
+        var t = reviewText[i].reviews[j].review_text;
+        console.log(t);
+    }
+}*/
 //Note: some products do not have a name.
- var newArray = []; 
- var longArray = [];
+
 for(var i = 0; i < reviewText.length; i++ ){
     for( var j = 0; j < reviewText[i].reviews.length; j++) {
-        var process = reviewText[i].reviews[j].review_text;// prints the review text only
-        //console.log(process);
-        var wordSplit = process.split(" "); // splits the long output string into single strings so my compressArray can process it
-        //wordSplit = process.replace(/\s+/g, '');
-       //wordSplit = process.toLowerCase();// i need to map the array to tolowercase 
-       var toLower = wordSplit.map((eachWord)=>eachWord.toLowerCase());
-       var replace = toLower.map((eachWord)=> eachWord.replace(/\s+/g, ''));
-    
-        //console.log(toLower);
-        newArray = compressArray(toLower);// does the count but processes each review text seperately and doesnt add them all together 
-        //console.log(newArray);
-        for (var a = 0; a < newArray.length; a++) { // trying to concatinate them all together to get one list
-            //console.log("hello you got here");
-            longArray = longArray.concat(newArray[a]);
-            //console.log("hello i'm here");
-            console.log(longArray[a]);
-        } 
-   }
+//    var c = reviewText[i].reviews;
+ //   console.log(c);
+    var process = reviewText[i].reviews[j].review_text;
+    console.log(process);
+    }
 }
-    console.log(longArray);
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
 
-var dataset = [//number of times the word is used, word count, star rating 
+var dataset = [
+    //number of times the word is used 
     [2, 120, 1.2],
     [2, 88,  2.3],
     [2, 91,  4.6],
@@ -146,7 +139,10 @@ io.on("connection", function(socket){
         console.log(nameForSocket[socket.id]+"disconnected");
     })
 
-    socket.on("findItem", function(data) {
+    socket.on("findItem", function(InfoFromClient) {
+        if (data[InfoFromClient] !== "undefined") {
+            socket.emit("")
+        }
         console.log(data);
         console.log("Callback.");
     })
