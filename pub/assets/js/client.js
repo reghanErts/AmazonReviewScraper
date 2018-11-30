@@ -37,6 +37,7 @@ function updateTableChoose(dataFromServer) {
         $("#searchResults").append(tableText);
     }
     $("#searchResults").append("</tbody>");
+    $('#searchResults').DataTable();
 }
 
 function setUpEventHandlers() {
