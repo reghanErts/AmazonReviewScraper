@@ -70,10 +70,10 @@ var bodyparser = require('body-parser');
 
 for(var i = 0; i < reviewText.length; i++ ){
     for( var j = 0; j < reviewText[i].reviews.length; j++) {
-//    var c = reviewText[i].reviews;
- //   console.log(c);
-    var process = reviewText[i].reviews[j].review_text;
-    console.log(process);
+        //var c = reviewText[i].reviews;
+        //console.log(c);
+        var process = reviewText[i].reviews[j].review_text;
+        //console.log(process);
     }
 }
 
@@ -140,11 +140,22 @@ io.on("connection", function(socket){
     })
 
     socket.on("findItem", function(InfoFromClient) {
-        if (data[InfoFromClient] !== "undefined") {
+        if (data[InfoFromClient] === "undefined") {
             socket.emit("")
         }
-        console.log(data);
-        console.log("Callback.");
+        var productNames = []
+        for (let i = 0; i < reviewText.length; i++) {
+            //console.log(typeof reviewText[i].name);
+            if (typeof reviewText[i].name !== "undefined" && reviewText[i].name.includes(InfoFromClient)) productNames.push(reviewText[i].name);
+        }
+        console.log("Processing.");
+        if (productNames.length > 0) {
+            return productNames;
+        } else {
+            socket.emit("searchError", "No products were found contianing that name.");
+        }
+        //console.log(data);
+        //console.log("Callback.");
     })
 });
 

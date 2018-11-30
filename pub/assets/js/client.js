@@ -2,7 +2,10 @@
 
 var socket = io();
 
-socket.on("", );
+socket.on("searchError", function(dataFromServer) {
+    console.log(dataFromServer);
+    $("#searchError").html(dataFromServer);
+});
 
 function updateGUI(dataFromServer) {
     // Clears the previous table and standings.
