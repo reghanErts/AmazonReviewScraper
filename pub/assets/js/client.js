@@ -2,22 +2,34 @@
 
 var socket = io();
 
-socket.on("searchError", function(dataFromServer) {
+socket.on("productList", function(dataFromServer) {
+    // The stuff enetered matched several products, and should be narrowed (to reduce server load etc.)
+    console.log("Products.");
     console.log(dataFromServer);
+});
+
+socket.on("reviews", function(dataFromServer) {
+    // The word (or words) was narrow enough to be matched to one product. 
+    console.log("Reviews.");
+    console.log(dataFromServer);
+});
+
+socket.on("searchError", function (dataFromServer) {
+    // Server couldn't find any products containing the word (or words).
     $("#searchError").html(dataFromServer);
 });
 
 function updateGUI(dataFromServer) {
     // Clears the previous table and standings.
     $("#searchResults").empty();
-    for(var i = 0; i < dataFromServer.length; i++) {
+    for (var i = 0; i < dataFromServer.length; i++) {
         // Reset all variables.
         var a = "", v = 0, t = 0, l = 0;
         // Set local variable that tracks while not constantly talking to the server.
         numberTeams = dataFromServer.length;
         // Top of the table.
         if (i == 0) {
-            a+= "<thead>"
+            a += "<thead>"
         }
         // New table row.
         a += "<tr>";
@@ -55,7 +67,7 @@ function updateGUI(dataFromServer) {
         }
         a += "</tr>";
         if (i == 0) {
-            a+= "</thead><tbody>"
+            a += "</thead><tbody>"
         }
         $("#tournamentTable").append(a);
     }
@@ -63,23 +75,23 @@ function updateGUI(dataFromServer) {
 }
 
 function setUpEventHandlers() {
-    $("#searchForm").submit(function(event) {
+    $("#searchForm").submit(function (event) {
         event.preventDefault();
-		socket.emit("findItem", $("#searchText").val(), function(dataFromServer) {
+        socket.emit("findItem", $("#searchText").val(), function (dataFromServer) {
             console.log("Searching.");
             // If the JSON comes back that's good.
-			if(dataFromServer != 'null') {
+            if (dataFromServer != 'null') {
                 // Clear Error field.
                 $("#searchError").val("");
                 // Clear the serach field.
                 $("#searchText").val("");
                 // Update the table.
                 updateGUI(dataFromServer);
-			} else {
+            } else {
                 $("#searchError").val("There was an error communicating with the server. Please try again.");
             }
-		});
-	});
+        });
+    });
 }
 
 $(setUpEventHandlers);

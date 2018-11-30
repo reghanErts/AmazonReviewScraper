@@ -86,24 +86,24 @@ for (var i = 0; i < reviewText.length; i++) {
         for (var a = 0; a < newArray.length; a++) { // trying to concatinate them all together to get one list
             // longArray = longArray.concat(newArray[a]);
             //find where the element is in the long array if at all
-            var found = longArray.find(function (element) {
-                //returns is the elements value exists in new arrays value.
-                return element.value == newArray[a].value;
-            });
+            // var found = longArray.find(function (element) {
+            //     //returns is the elements value exists in new arrays value.
+            //     return element.value == newArray[a].value;
+            // });
 
             //if is doesnt exist in the long array
-            if (typeof element === "undefined") {
-                //concatenate just the one element to the longArray(the word count)
-                longArray.concat(element);
-            } else {
-                //add the value for that word in newArrayto the count for that wordin long array
+            // if (typeof element === "undefined") {
+            //     //concatenate just the one element to the longArray(the word count)
+            //     longArray.concat(element);
+            // } else {
+            //     //add the value for that word in newArrayto the count for that wordin long array
 
-            }
+            // }
             // console.log(longArray[a]);
         }
     }
 }
-console.log(longArray);
+//console.log(longArray);
 //thisarray = compressArray(longArray);
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
@@ -169,27 +169,31 @@ io.on("connection", function (socket) {
     })
 
     socket.on("findItem", function (InfoFromClient) {
-        if (data[InfoFromClient] === "undefined") {
-            socket.emit("")
+        // The client has requested to find a product.
+        if (data[InfoFromClient] !== "undefined") {
+            let productNames = []
+            // Find all products that match what the client sent.
+            for (let i = 0; i < reviewText.length; i++) {
+                if (typeof reviewText[i].name !== "undefined" &&
+                    reviewText[i].name.toLowerCase().includes(InfoFromClient.toLowerCase())) {
+                    productNames.push([i, reviewText[i].name]);
+                }
+            }
+            if (productNames.length == 1) {
+                // If there's only one product, send that products information.
+                socket.emit("reviews", [productNames[0][0], reviewText[productNames[0][0]].ratings,
+                reviewText[productNames[0][0]].reviews]);
+            } else if (productNames.length > 0) {
+                // The server has found numerous matches; send all potential matches to the client to be specified.
+                socket.emit("productList", productNames);
+            } else {
+                // The server has no matches for what the client requested.
+                socket.emit("searchError", "No products were found contianing that name.");
+            }
         }
-        var productNames = []
-        for (let i = 0; i < reviewText.length; i++) {
-            //console.log(typeof reviewText[i].name);
-            if (typeof reviewText[i].name !== "undefined" && reviewText[i].name.includes(InfoFromClient)) productNames.push(reviewText[i].name);
-        }
-        console.log("Processing.");
-        if (productNames.length > 0) {
-            return productNames;
-        } else {
-            socket.emit("searchError", "No products were found contianing that name.");
-        }
-        //console.log(data);
-        //console.log("Callback.");
     })
 });
 
 server.listen(80, function () {
     console.log("Server with socket.io is ready.");
 });
-
-// maybe have the clients be able to talk to  a help line?
