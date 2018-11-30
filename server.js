@@ -70,20 +70,35 @@ for(var i = 0; i < reviewText.length; i++ ){
         //wordSplit = process.replace(/\s+/g, '');
        //wordSplit = process.toLowerCase();// i need to map the array to tolowercase 
        var toLower = wordSplit.map((eachWord)=>eachWord.toLowerCase());
-       var replace = toLower.map((eachWord)=> eachWord.replace(/\s+/g, ''));
+      // var noPuc = toLower.map((eachWord)=>eachword.replace(/[.,\/#!$%\^&\*;:{}=\-_'~()]/g,''));
+       var noSpace = toLower.map((eachWord)=> eachWord.replace(/\s+/g, ''));
     
         //console.log(toLower);
-        newArray = compressArray(toLower);// does the count but processes each review text seperately and doesnt add them all together 
+        newArray = compressArray(noSpace);// does the count but processes each review text seperately and doesnt add them all together 
         //console.log(newArray);
+        
         for (var a = 0; a < newArray.length; a++) { // trying to concatinate them all together to get one list
-            //console.log("hello you got here");
-            longArray = longArray.concat(newArray[a]);
-            //console.log("hello i'm here");
-            console.log(longArray[a]);
+           // longArray = longArray.concat(newArray[a]);
+            //find where the element is in the long array if at all
+            var found = longArray.find(function(element){
+                //returns is the elements value exists in new arrays value.
+              return element.value == newArray[a].value;
+            });
+        
+              //if is doesnt exist in the long array
+              if (typeof element === "undefined") {
+                  //concatenate just the one element to the longArray(the word count)
+                  longArray.concat(element);
+              } else {
+                  //add the value for that word in newArrayto the count for that wordin long array
+
+              }
+           // console.log(longArray[a]);
         } 
    }
 }
     console.log(longArray);
+    //thisarray = compressArray(longArray);
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
