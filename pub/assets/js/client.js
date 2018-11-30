@@ -2,6 +2,8 @@
 
 var socket = io();
 
+socket.on("", );
+
 function updateGUI(dataFromServer) {
     // Clears the previous table and standings.
     $("#searchResults").empty();

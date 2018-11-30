@@ -49,9 +49,10 @@ function compressArray(original) {
 	return compressed;
 };
 
-/*var testArray = new Array("you", "are", "cool", "and", "all", "cool");
+var testArray = new Array("you", "are", "cool", "and", "all", "cool");
 var newArray = compressArray(testArray);
-console.log(newArray);*/
+console.log(newArray);
+
 
 var fs = require('fs');
 var data = fs.readFileSync('.\\scrape\\ExampleData.json', 'utf8');
@@ -59,9 +60,14 @@ var reviewText = JSON.parse(data);
 var bodyparser = require('body-parser');
 
 //console.log(reviewText[0].reviews);
+/*for (var i = 0; i < reviewText.length; i++) {
+    for (var j = 0; j < reviewText[i].reviews.length; j++) {
+        var t = reviewText[i].reviews[j].review_text;
+        console.log(t);
+    }
+}*/
 //Note: some products do not have a name.
- var newArray = []; 
- var longArray = [];
+
 for(var i = 0; i < reviewText.length; i++ ){
     for( var j = 0; j < reviewText[i].reviews.length; j++) {
         var process = reviewText[i].reviews[j].review_text;// prints the review text only
@@ -103,7 +109,8 @@ for(var i = 0; i < reviewText.length; i++ ){
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
 
-var dataset = [//number of times the word is used, word count, star rating 
+var dataset = [
+    //number of times the word is used 
     [2, 120, 1.2],
     [2, 88,  2.3],
     [2, 91,  4.6],
@@ -161,7 +168,10 @@ io.on("connection", function(socket){
         console.log(nameForSocket[socket.id]+"disconnected");
     })
 
-    socket.on("findItem", function(data) {
+    socket.on("findItem", function(InfoFromClient) {
+        if (data[InfoFromClient] !== "undefined") {
+            socket.emit("")
+        }
         console.log(data);
         console.log("Callback.");
     })
