@@ -158,7 +158,6 @@ regression.train(trainingSet, predictions);
 var result = regression.predict(trainingSet);
 //console.log(result);
 
-
 var nameForSocket = [];
 
 io.on("connection", function (socket) {
@@ -168,15 +167,18 @@ io.on("connection", function (socket) {
         console.log(nameForSocket[socket.id] + "disconnected");
     })
 
+    // The client has requested to find a product.
     socket.on("findItem", function (InfoFromClient) {
-        // The client has requested to find a product.
         if (data[InfoFromClient] !== "undefined") {
+            // We want to limit data transfer, and client knowledge of how many items we have and where they are.
             let productNames = []
+            let productPos = []
             // Find all products that match what the client sent.
             for (let i = 0; i < reviewText.length; i++) {
                 if (typeof reviewText[i].name !== "undefined" &&
                     reviewText[i].name.toLowerCase().includes(InfoFromClient.toLowerCase())) {
-                    productNames.push([i, reviewText[i].name]);
+                    productNames.push(reviewText[i].name);
+                    productPos.push(i);
                 }
             }
             if (productNames.length > 1) {
@@ -184,8 +186,8 @@ io.on("connection", function (socket) {
                 socket.emit("productList", productNames);
             } else if (productNames.length == 1) {
                 // If there's only one product, send that products' information.
-                socket.emit("reviews", reviewText[productNames[0][0]]);
-            }  else {
+                socket.emit("reviews", reviewText[productPos[0]]);
+            } else {
                 // The server has no matches for what the client requested.
                 socket.emit("searchError", "No products were found contianing that name.");
             }
