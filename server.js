@@ -19,34 +19,34 @@ app.use(express.static("pub"));
 // from the exampledata.json 
 
 function compressArray(original) {
- 
-	var compressed = [];
-	// make a copy of the input array
-	var copy = original.slice(0);
- 
-	// first loop goes over every element
-	for (var i = 0; i < original.length; i++) {
- 
-		var myCount = 0;	
-		// loop over every element in the copy and see if it's the same
-		for (var w = 0; w < copy.length; w++) {
-			if (original[i] == copy[w]) {
-				// increase amount of times duplicate is found
-				myCount++;
-				// sets item to undefined
-				delete copy[w];
-			}
-		}
- 
-		if (myCount > 0) {
-			var a = new Object();
-			a.value = original[i];
-			a.count = myCount;
-			compressed.push(a);
-		}
-	}
- 
-	return compressed;
+
+    var compressed = [];
+    // make a copy of the input array
+    var copy = original.slice(0);
+
+    // first loop goes over every element
+    for (var i = 0; i < original.length; i++) {
+
+        var myCount = 0;
+        // loop over every element in the copy and see if it's the same
+        for (var w = 0; w < copy.length; w++) {
+            if (original[i] == copy[w]) {
+                // increase amount of times duplicate is found
+                myCount++;
+                // sets item to undefined
+                delete copy[w];
+            }
+        }
+
+        if (myCount > 0) {
+            var a = new Object();
+            a.value = original[i];
+            a.count = myCount;
+            compressed.push(a);
+        }
+    }
+
+    return compressed;
 };
 
 var testArray = new Array("you", "are", "cool", "and", "all", "cool");
@@ -68,71 +68,63 @@ var bodyparser = require('body-parser');
 }*/
 //Note: some products do not have a name.
 
-for(var i = 0; i < reviewText.length; i++ ){
-    for( var j = 0; j < reviewText[i].reviews.length; j++) {
-<<<<<<< HEAD
-        //var c = reviewText[i].reviews;
-        //console.log(c);
-        var process = reviewText[i].reviews[j].review_text;
-        //console.log(process);
-    }
-=======
+for (var i = 0; i < reviewText.length; i++) {
+    for (var j = 0; j < reviewText[i].reviews.length; j++) {
         var process = reviewText[i].reviews[j].review_text;// prints the review text only
         //console.log(process);
         var wordSplit = process.split(" "); // splits the long output string into single strings so my compressArray can process it
         //wordSplit = process.replace(/\s+/g, '');
-       //wordSplit = process.toLowerCase();// i need to map the array to tolowercase 
-       var toLower = wordSplit.map((eachWord)=>eachWord.toLowerCase());
-      // var noPuc = toLower.map((eachWord)=>eachword.replace(/[.,\/#!$%\^&\*;:{}=\-_'~()]/g,''));
-       var noSpace = toLower.map((eachWord)=> eachWord.replace(/\s+/g, ''));
-    
+        //wordSplit = process.toLowerCase();// i need to map the array to tolowercase 
+        var toLower = wordSplit.map((eachWord) => eachWord.toLowerCase());
+        // var noPuc = toLower.map((eachWord)=>eachword.replace(/[.,\/#!$%\^&\*;:{}=\-_'~()]/g,''));
+        var noSpace = toLower.map((eachWord) => eachWord.replace(/\s+/g, ''));
+
         //console.log(toLower);
         newArray = compressArray(noSpace);// does the count but processes each review text seperately and doesnt add them all together 
         //console.log(newArray);
-        
-        for (var a = 0; a < newArray.length; a++) { // trying to concatinate them all together to get one list
-           // longArray = longArray.concat(newArray[a]);
-            //find where the element is in the long array if at all
-            var found = longArray.find(function(element){
-                //returns is the elements value exists in new arrays value.
-              return element.value == newArray[a].value;
-            });
-        
-              //if is doesnt exist in the long array
-              if (typeof element === "undefined") {
-                  //concatenate just the one element to the longArray(the word count)
-                  longArray.concat(element);
-              } else {
-                  //add the value for that word in newArrayto the count for that wordin long array
 
-              }
-           // console.log(longArray[a]);
-        } 
-   }
->>>>>>> 77f0fcb1373cd9d133b5757a191ed4b160bee244
+        for (var a = 0; a < newArray.length; a++) { // trying to concatinate them all together to get one list
+            // longArray = longArray.concat(newArray[a]);
+            //find where the element is in the long array if at all
+            var found = longArray.find(function (element) {
+                //returns is the elements value exists in new arrays value.
+                return element.value == newArray[a].value;
+            });
+
+            //if is doesnt exist in the long array
+            if (typeof element === "undefined") {
+                //concatenate just the one element to the longArray(the word count)
+                longArray.concat(element);
+            } else {
+                //add the value for that word in newArrayto the count for that wordin long array
+
+            }
+            // console.log(longArray[a]);
+        }
+    }
 }
-    console.log(longArray);
-    //thisarray = compressArray(longArray);
+console.log(longArray);
+//thisarray = compressArray(longArray);
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
- var RFRegression = require('ml-random-forest').RandomForestRegression;
+var RFRegression = require('ml-random-forest').RandomForestRegression;
 
 var dataset = [
     //number of times the word is used 
     [2, 120, 1.2],
-    [2, 88,  2.3],
-    [2, 91,  4.6],
-    [2, 98,  3.5],
+    [2, 88, 2.3],
+    [2, 91, 4.6],
+    [2, 98, 3.5],
     [2, 66, 3.4],
-    [2, 46,  4.6],
-    [2, 74,  2.1],
-    [2, 56,  3.5],
-    [2, 79,  3.6],
-    [2, 70,  5.0],
-    [2, 70,  3.5],
-    [2, 65,  3.5],
-    [2, 95,  3.4],
-    [2, 80,  4.7]/*,
+    [2, 46, 4.6],
+    [2, 74, 2.1],
+    [2, 56, 3.5],
+    [2, 79, 3.6],
+    [2, 70, 5.0],
+    [2, 70, 3.5],
+    [2, 65, 3.5],
+    [2, 95, 3.4],
+    [2, 80, 4.7]/*,
     [2, 73, 78, 2.6],
     [2, 89, 96, 4.5],
     [2, 75, 68, 3.8],
@@ -169,14 +161,14 @@ var result = regression.predict(trainingSet);
 
 var nameForSocket = [];
 
-io.on("connection", function(socket){
+io.on("connection", function (socket) {
     console.log("someone connected");
 
-    socket.on("disconnect",function(){
-        console.log(nameForSocket[socket.id]+"disconnected");
+    socket.on("disconnect", function () {
+        console.log(nameForSocket[socket.id] + "disconnected");
     })
 
-    socket.on("findItem", function(InfoFromClient) {
+    socket.on("findItem", function (InfoFromClient) {
         if (data[InfoFromClient] === "undefined") {
             socket.emit("")
         }
@@ -196,8 +188,8 @@ io.on("connection", function(socket){
     })
 });
 
-server.listen(80, function() {
-	console.log("Server with socket.io is ready.");
+server.listen(80, function () {
+    console.log("Server with socket.io is ready.");
 });
 
 // maybe have the clients be able to talk to  a help line?
