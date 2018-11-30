@@ -68,10 +68,12 @@ for(var i = 0; i < reviewText.length; i++ ){
         //console.log(process);
         var wordSplit = process.split(" "); // splits the long output string into single strings so my compressArray can process it
         //wordSplit = process.replace(/\s+/g, '');
-        wordSplit = process.toLowerCase();
+       //wordSplit = process.toLowerCase();// i need to map the array to tolowercase 
+       var toLower = wordSplit.map((eachWord)=>eachWord.toLowerCase());
+       var replace = toLower.map((eachWord)=> eachWord.replace(/\s+/g, ''));
     
-        //console.log(wordSplit);
-        newArray = compressArray(wordSplit);// does the count but processes each review text seperately and doesnt add them all together 
+        //console.log(toLower);
+        newArray = compressArray(toLower);// does the count but processes each review text seperately and doesnt add them all together 
         //console.log(newArray);
         for (var a = 0; a < newArray.length; a++) { // trying to concatinate them all together to get one list
             //console.log("hello you got here");
@@ -79,7 +81,7 @@ for(var i = 0; i < reviewText.length; i++ ){
             //console.log("hello i'm here");
             console.log(longArray[a]);
         } 
-    }
+   }
 }
     console.log(longArray);
 
