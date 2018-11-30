@@ -70,12 +70,49 @@ var bodyparser = require('body-parser');
 
 for(var i = 0; i < reviewText.length; i++ ){
     for( var j = 0; j < reviewText[i].reviews.length; j++) {
+<<<<<<< HEAD
         //var c = reviewText[i].reviews;
         //console.log(c);
         var process = reviewText[i].reviews[j].review_text;
         //console.log(process);
     }
+=======
+        var process = reviewText[i].reviews[j].review_text;// prints the review text only
+        //console.log(process);
+        var wordSplit = process.split(" "); // splits the long output string into single strings so my compressArray can process it
+        //wordSplit = process.replace(/\s+/g, '');
+       //wordSplit = process.toLowerCase();// i need to map the array to tolowercase 
+       var toLower = wordSplit.map((eachWord)=>eachWord.toLowerCase());
+      // var noPuc = toLower.map((eachWord)=>eachword.replace(/[.,\/#!$%\^&\*;:{}=\-_'~()]/g,''));
+       var noSpace = toLower.map((eachWord)=> eachWord.replace(/\s+/g, ''));
+    
+        //console.log(toLower);
+        newArray = compressArray(noSpace);// does the count but processes each review text seperately and doesnt add them all together 
+        //console.log(newArray);
+        
+        for (var a = 0; a < newArray.length; a++) { // trying to concatinate them all together to get one list
+           // longArray = longArray.concat(newArray[a]);
+            //find where the element is in the long array if at all
+            var found = longArray.find(function(element){
+                //returns is the elements value exists in new arrays value.
+              return element.value == newArray[a].value;
+            });
+        
+              //if is doesnt exist in the long array
+              if (typeof element === "undefined") {
+                  //concatenate just the one element to the longArray(the word count)
+                  longArray.concat(element);
+              } else {
+                  //add the value for that word in newArrayto the count for that wordin long array
+
+              }
+           // console.log(longArray[a]);
+        } 
+   }
+>>>>>>> 77f0fcb1373cd9d133b5757a191ed4b160bee244
 }
+    console.log(longArray);
+    //thisarray = compressArray(longArray);
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
  var RFRegression = require('ml-random-forest').RandomForestRegression;
