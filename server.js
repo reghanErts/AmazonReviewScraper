@@ -179,14 +179,13 @@ io.on("connection", function (socket) {
                     productNames.push([i, reviewText[i].name]);
                 }
             }
-            if (productNames.length == 1) {
-                // If there's only one product, send that products information.
-                socket.emit("reviews", [productNames[0][0], reviewText[productNames[0][0]].ratings,
-                reviewText[productNames[0][0]].reviews]);
-            } else if (productNames.length > 0) {
+            if (productNames.length > 1) {
                 // The server has found numerous matches; send all potential matches to the client to be specified.
                 socket.emit("productList", productNames);
-            } else {
+            } else if (productNames.length == 1) {
+                // If there's only one product, send that products' information.
+                socket.emit("reviews", reviewText[productNames[0][0]]);
+            }  else {
                 // The server has no matches for what the client requested.
                 socket.emit("searchError", "No products were found contianing that name.");
             }
