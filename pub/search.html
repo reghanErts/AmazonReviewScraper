@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Search using EAR</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="./assets/img/favicon.jpeg"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/main.css" />
-    <script src="socket.io/socket.io.js"></script>
     <script src="./assets/js/jquery-3.3.1.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
-    <script src="./assets/js/client.js"></script>
+    <link rel="shortcut icon" type="image/png" href="./assets/img/Favicon.jpeg" />
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+        });
+    </script>
 </head>
+
 <body>
-    <div class="Navigation">
-        <a href="./index.html">Home</a>
-        <a href="./search.html" class="active">Search</a>
-        <a href="./disclaim.html">Disclaimer</a>
-        <a href="./about.html">About</a>
-    </div>
-    <div id="bgc">
-        <h1>Search</h1>
-        <h2 id="searchError"></h2>
-        <form id="searchForm">
-            Product name/product page URL:&nbsp;
-            <input id="searchText" type="text" placeholder="boots">&nbsp;
-            <input type="submit" value="Search">
-        </form>
-        <table id="searchResults" align="center" class="table table-sm">
-        </table>
-    </div>
+    <div id="header"></div>
+
+    <body>
+        <div class="Navigation">
+            <a href="./index.html">Home</a>
+            <a href="./search.html" class="active">Search</a>
+            <a href="./disclaim.html">Disclaimer</a>
+            <a href="./about.html">About</a>
+        </div>
+        <div id="bgc">
+            <h1>Search</h1>
+            <h2 id="searchError"></h2>
+            <form id="searchForm">
+                Product name/product page URL:&nbsp;
+                <input id="searchText" type="text" placeholder="boots">&nbsp;
+                <input type="submit" value="Search">
+            </form>
+            <table id="searchResults" align="center" class="table table-bordered table-sm">
+            </table>
+        </div>
+    </body>
 </body>
+
 </html>

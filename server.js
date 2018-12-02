@@ -169,8 +169,9 @@ io.on("connection", function (socket) {
 
     // The client has requested to find a product.
     socket.on("findItem", function (InfoFromClient) {
-        if (data[InfoFromClient] !== "undefined") {
-            // We want to limit data transfer, and client knowledge of how many items we have and where they are.
+        // The product must be at least 2 letters long.
+        if (data[InfoFromClient] !== "undefined" && InfoFromClient.length > 2) {
+            // We want to limit data transfer, and client knowledge of how many items we have, and where they are.
             let productNames = []
             let productPos = []
             // Find all products that match what the client sent.
@@ -191,6 +192,9 @@ io.on("connection", function (socket) {
                 // The server has no matches for what the client requested.
                 socket.emit("searchError", "No products were found contianing that name.");
             }
+        } else {
+            // The server has no matches for what the client requested.
+            socket.emit("searchError", "The product name you're searching for is too short.");
         }
     })
 });

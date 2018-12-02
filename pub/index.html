@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
+
+<!-- https://stackoverflow.com/questions/18712338/make-header-and-footer-files-to-be-included-in-multiple-html-pages -->
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>EAR - Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="./assets/img/favicon.jpeg"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/main.css" />
+    <title>Ear - Home</title>
+    <link rel="shortcut icon" type="image/png" href="./assets/img/Favicon.jpeg" />
     <script src="./assets/js/jquery-3.3.1.js"></script>
-    <script src="./assets/js/client.js"></script>
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+        });
+    </script>
 </head>
+
 <body>
+    <div id="header"></div>
     <div class="Navigation">
         <a href="./index.html" class="active">Home</a>
         <a href="./search.html">Search</a>
@@ -19,17 +23,24 @@
         <a href="./about.html">About</a>
     </div>
     <div id="bgc">
-        <h1><div class="pink">E</div><div class="yellow">A</div><div class="lblue">R</div>-
+        <h1>
+            <div class="pink">E</div>
+            <div class="yellow">A</div>
+            <div class="lblue">R</div>-
             <div class="pink">E</div>asy
-            <div class="yellow">A</div>mazon 
-            <div class="lblue">R</div>eviews</h1>
+            <div class="yellow">A</div>mazon
+            <div class="lblue">R</div>eviews
+        </h1>
         <h2>Hear what others are saying about the products you're intersted in.</h2>
-        <p>Our website uses uses an algorithm to sift through hundreds of comments on the amazon products that you're interested in
-            to give you the general consensus of those that reviewed it. Use our service to easily spot potential problems, and find
+        <p>Our website uses uses an algorithm to sift through hundreds of comments on the amazon products that you're
+            interested in
+            to give you the general consensus of those that reviewed it. Use our service to easily spot potential
+            problems, and find
             your child the perfect toy in no time!<br><br>
             <a href="./search.html">Check it out</button>
         </p>
         <br>
     </div>
 </body>
+
 </html>
