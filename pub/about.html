@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>About us</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="./assets/img/favicon.jpeg"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/main.css" />
+    <title>About Us</title>
+    <link rel="shortcut icon" type="image/png" href="./assets/img/Favicon.jpeg" />
     <script src="./assets/js/jquery-3.3.1.js"></script>
-    <script src="./assets/js/client.js"></script>
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+        });
+    </script>
 </head>
+
 <body>
+    <div id="header"></div>
+
     <div class="Navigation">
         <a href="./index.html">Home</a>
         <a href="./search.html">Search</a>
@@ -32,4 +36,5 @@
         <p>Cole designed the website, and made the client side js.</p>
     </div>
 </body>
+
 </html>

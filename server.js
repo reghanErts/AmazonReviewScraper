@@ -12,6 +12,16 @@ var io = socketio(server);
 
 var sanitizeHtml = require("sanitize-html");
 
+var mongodb = require("mongodb");
+
+var MongoClient = mongodb.MongoClient;
+
+var ObjectID = mongodb.ObjectID;
+
+var client = new MongoClient("mongodb://localhost", { useNewUrlParser: true });
+
+var db;
+
 app.use(express.static("pub"));
 
 // get review array-> find review_text-> split the long 
@@ -48,6 +58,35 @@ function compressArray(original) {
 	}
  
 	return compressed;
+
+    var compressed = [];
+    // make a copy of the input array
+    var copy = original.slice(0);
+
+    // first loop goes over every element
+    for (var i = 0; i < original.length; i++) {
+
+        var myCount = 0;
+        // loop over every element in the copy and see if it's the same
+        for (var w = 0; w < copy.length; w++) {
+            if (original[i] == copy[w]) {
+                // increase amount of times duplicate is found
+                myCount++;
+                // sets item to undefined
+                delete copy[w];
+            }
+        }
+
+        if (myCount > 0) {
+            var a = new Object();
+            a.value = original[i];
+            a.count = myCount;
+            compressed.push(a);
+        }
+    }
+
+    return compressed;
+>>>>>>> 6d3aac5cbc6cd862a42d9fa4d6bc2aeba59a87bd
 };
 
 /*var testArray = new Array("you", "are", "cool", "and", "all", "cool");
@@ -122,24 +161,24 @@ for(var i = 0; i < reviewText.length; i++ ){
     //thisarray = compressArray(longArray);
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
- var RFRegression = require('ml-random-forest').RandomForestRegression;
+var RFRegression = require('ml-random-forest').RandomForestRegression;
 
 var dataset = [
     //number of times the word is used 
     [2, 120, 1.2],
-    [2, 88,  2.3],
-    [2, 91,  4.6],
-    [2, 98,  3.5],
+    [2, 88, 2.3],
+    [2, 91, 4.6],
+    [2, 98, 3.5],
     [2, 66, 3.4],
-    [2, 46,  4.6],
-    [2, 74,  2.1],
-    [2, 56,  3.5],
-    [2, 79,  3.6],
-    [2, 70,  5.0],
-    [2, 70,  3.5],
-    [2, 65,  3.5],
-    [2, 95,  3.4],
-    [2, 80,  4.7]/*,
+    [2, 46, 4.6],
+    [2, 74, 2.1],
+    [2, 56, 3.5],
+    [2, 79, 3.6],
+    [2, 70, 5.0],
+    [2, 70, 3.5],
+    [2, 65, 3.5],
+    [2, 95, 3.4],
+    [2, 80, 4.7]/*,
     [2, 73, 78, 2.6],
     [2, 89, 96, 4.5],
     [2, 75, 68, 3.8],
@@ -173,27 +212,57 @@ regression.train(trainingSet, predictions);
 var result = regression.predict(trainingSet);
 //console.log(result);
 
-
 var nameForSocket = [];
 
-io.on("connection", function(socket){
+io.on("connection", function (socket) {
     console.log("someone connected");
 
-    socket.on("disconnect",function(){
-        console.log(nameForSocket[socket.id]+"disconnected");
-    })
+    socket.on("disconnect", function () {
+        console.log(nameForSocket[socket.id] + "disconnected");
+    });
 
-    socket.on("findItem", function(InfoFromClient) {
-        if (data[InfoFromClient] !== "undefined") {
-            socket.emit("")
+
+
+    // The client has requested to find a product.
+    socket.on("findItem", function (InfoFromClient) {
+        // The product must be at least 2 letters long.
+        if (data[InfoFromClient] !== "undefined" && InfoFromClient.length > 2) {
+            // We want to limit data transfer, and client knowledge of how many items we have, and where they are.
+            let productNames = []
+            let productPos = []
+            // Find all products that match what the client sent.
+            for (let i = 0; i < reviewText.length; i++) {
+                if (typeof reviewText[i].name !== "undefined" &&
+                    reviewText[i].name.toLowerCase().includes(InfoFromClient.toLowerCase())) {
+                    productNames.push(reviewText[i].name);
+                    productPos.push(i);
+                }
+            }
+            if (productNames.length > 1) {
+                // The server has found numerous matches; send all potential matches to the client to be specified.
+                socket.emit("productList", productNames);
+            } else if (productNames.length == 1) {
+                // If there's only one product, send that products' information.
+                socket.emit("reviews", reviewText[productPos[0]]);
+            } else {
+                // The server has no matches for what the client requested.
+                socket.emit("searchError", "No products were found contianing that name.");
+            }
+        } else {
+            // The server has no matches for what the client requested.
+            socket.emit("searchError", "The product name you're searching for is too short.");
         }
-        console.log(data);
-        console.log("Callback.");
-    })
+    });
 });
 
-server.listen(80, function() {
-	console.log("Server with socket.io is ready.");
+client.connect(function(err){
+    if(err != null) throw err;
+    else{
+        db = client.db("keywords");
+        console.log("Database is up");
+    }
 });
 
-// maybe have the clients be able to talk to  a help line?
+server.listen(80, function () {
+    console.log("Server with socket.io is ready.");
+});
