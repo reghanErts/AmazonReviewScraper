@@ -34,14 +34,15 @@ function compressArray(original) {
 				// increase amount of times duplicate is found
 				myCount++;
 				// sets item to undefined
-				delete copy[w];
+				//delete copy[w];
 			}
 		}
  
 		if (myCount > 0) {
 			var a = new Object();
 			a.value = original[i];
-			a.count = myCount;
+            a.count = myCount;
+            //a.rating = findRating(original);
 			compressed.push(a);
 		}
 	}
@@ -49,9 +50,9 @@ function compressArray(original) {
 	return compressed;
 };
 
-var testArray = new Array("you", "are", "cool", "and", "all", "cool");
+/*var testArray = new Array("you", "are", "cool", "and", "all", "cool");
 var newArray = compressArray(testArray);
-console.log(newArray);
+console.log(newArray);*/
 
 
 var fs = require('fs');
@@ -60,50 +61,64 @@ var reviewText = JSON.parse(data);
 var bodyparser = require('body-parser');
 
 //console.log(reviewText[0].reviews);
-/*for (var i = 0; i < reviewText.length; i++) {
-    for (var j = 0; j < reviewText[i].reviews.length; j++) {
-        var t = reviewText[i].reviews[j].review_text;
-        console.log(t);
-    }
-}*/
-//Note: some products do not have a name.
 
+//Note: some products do not have a name.
+function findRating(ratingElement){
+    for( var c = 0 ; c< reviewText.length; c++){
+        for(var d = 0; d < reviewText[c].reviews.length; d  ++){
+            var findRating = reviewText[c].reviews[d].review_rating[ratingElement];
+            console.log(findRating); 
+              
+        }
+    }
+}
 for(var i = 0; i < reviewText.length; i++ ){
     for( var j = 0; j < reviewText[i].reviews.length; j++) {
         var process = reviewText[i].reviews[j].review_text;// prints the review text only
         //console.log(process);
         var wordSplit = process.split(" "); // splits the long output string into single strings so my compressArray can process it
         //wordSplit = process.replace(/\s+/g, '');
-       //wordSplit = process.toLowerCase();// i need to map the array to tolowercase 
+        //wordSplit = process.toLowerCase();// i need to map the array to tolowercase 
        var toLower = wordSplit.map((eachWord)=>eachWord.toLowerCase());
-      // var noPuc = toLower.map((eachWord)=>eachword.replace(/[.,\/#!$%\^&\*;:{}=\-_'~()]/g,''));
-       var noSpace = toLower.map((eachWord)=> eachWord.replace(/\s+/g, ''));
+       var noPuc = toLower.map((eachWord)=>eachWord.replace(/[.,\/#!$%\^&\*;:{}=\-_'~()]/g,''));
+       var noSpace = noPuc.map((eachWord)=> eachWord.replace(/\s+/g, ''));
     
         //console.log(toLower);
-        newArray = compressArray(noSpace);// does the count but processes each review text seperately and doesnt add them all together 
+        function getOccurrence(array, value){
+            var count = 0;
+            array.forEach((v) => (v === value && count ++));
+            return count;
+        }
+        console.log(getOccurrence(noSpace, "bad"));
+        console.log ("hello");
+        console.log( getOccurrence(noSpace, "good"));
+        //newArray = compressArray(noSpace);// does the count but processes each review text seperately and doesnt add them all together 
         //console.log(newArray);
         
-        for (var a = 0; a < newArray.length; a++) { // trying to concatinate them all together to get one list
+        /*for (var a of newArray) { // trying to concatinate them all together to get one list
            // longArray = longArray.concat(newArray[a]);
             //find where the element is in the long array if at all
+            console.log(a.value);
+            //longArray = newArray[a];
+
             var found = longArray.find(function(element){
                 //returns is the elements value exists in new arrays value.
-              return element.value == newArray[a].value;
+              return element.value == a.value;
             });
-        
               //if is doesnt exist in the long array
-              if (typeof element === "undefined") {
+              if (typeof found === "undefined") {
                   //concatenate just the one element to the longArray(the word count)
-                  longArray.concat(element);
+                  longArray.concat(found);
               } else {
-                  //add the value for that word in newArrayto the count for that wordin long array
-
+                //add the value for that word in newArrayto the count for that wordin long array
+                newArray = newArray.value + longArray.found;
+                
               }
            // console.log(longArray[a]);
-        } 
+        } */
    }
 }
-    console.log(longArray);
+  // console.log(longArray);
     //thisarray = compressArray(longArray);
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
