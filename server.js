@@ -277,6 +277,13 @@ function getDocuments(){ //Gets contents of whole table (Just prints for now)
     });
 }
 
+function purgeDocuments(){ //Deletes all dcouments in table. Use to purge test data!
+    db.collection("words").drop(function(err, deleteOkay){
+        if(err) throw err;
+        if(deleteOkay) console.log("*!*Documents have been purged*!*");
+    });
+}
+
 //End of database manipulation functions
 
 server.listen(80, function () {
