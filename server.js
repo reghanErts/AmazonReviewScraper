@@ -28,92 +28,26 @@ app.use(express.static("pub"));
 //string into an array of strings to find the word count.
 // from the exampledata.json 
 
-function compressArray(original) {
- 
-	var compressed = [];
-	// make a copy of the input array
-	var copy = original.slice(0);
- 
-	// first loop goes over every element
-	for (var i = 0; i < original.length; i++) {
- 
-		var myCount = 0;	
-		// loop over every element in the copy and see if it's the same
-		for (var w = 0; w < copy.length; w++) {
-			if (original[i] == copy[w]) {
-				// increase amount of times duplicate is found
-				myCount++;
-				// sets item to undefined
-				//delete copy[w];
-			}
-		}
- 
-		if (myCount > 0) {
-			var a = new Object();
-			a.value = original[i];
-            a.count = myCount;
-            //a.rating = findRating(original);
-			compressed.push(a);
-		}
-	}
- 
-	return compressed;
-
-    var compressed = [];
-    // make a copy of the input array
-    var copy = original.slice(0);
-
-    // first loop goes over every element
-    for (var i = 0; i < original.length; i++) {
-
-        var myCount = 0;
-        // loop over every element in the copy and see if it's the same
-        for (var w = 0; w < copy.length; w++) {
-            if (original[i] == copy[w]) {
-                // increase amount of times duplicate is found
-                myCount++;
-                // sets item to undefined
-                delete copy[w];
-            }
-        }
-
-        if (myCount > 0) {
-            var a = new Object();
-            a.value = original[i];
-            a.count = myCount;
-            compressed.push(a);
-        }
-    }
-
-    return compressed;
->>>>>>> 6d3aac5cbc6cd862a42d9fa4d6bc2aeba59a87bd
-};
-
-/*var testArray = new Array("you", "are", "cool", "and", "all", "cool");
-var newArray = compressArray(testArray);
-console.log(newArray);*/
-
 
 var fs = require('fs');
 var data = fs.readFileSync('.\\scrape\\ExampleData.json', 'utf8');
 var reviewText = JSON.parse(data);
 var bodyparser = require('body-parser');
 
-//console.log(reviewText[0].reviews);
+//console.log(data);
 
-//Note: some products do not have a name.
-function findRating(ratingElement){
-    for( var c = 0 ; c< reviewText.length; c++){
-        for(var d = 0; d < reviewText[c].reviews.length; d  ++){
-            var findRating = reviewText[c].reviews[d].review_rating[ratingElement];
-            console.log(findRating); 
-              
-        }
-    }
-}
+//console.log(reviewText[0].reviews);
+//console.log( count);
+var realData = [];
+
 for(var i = 0; i < reviewText.length; i++ ){
+    var bad = 0;
+    var good =0;
+    var ratings = 0;
     for( var j = 0; j < reviewText[i].reviews.length; j++) {
         var process = reviewText[i].reviews[j].review_text;// prints the review text only
+        var rating = reviewText[i].reviews[j].review_rating;
+        rating = parseFloat(rating);
         //console.log(process);
         var wordSplit = process.split(" "); // splits the long output string into single strings so my compressArray can process it
         //wordSplit = process.replace(/\s+/g, '');
@@ -128,44 +62,104 @@ for(var i = 0; i < reviewText.length; i++ ){
             array.forEach((v) => (v === value && count ++));
             return count;
         }
-        console.log(getOccurrence(noSpace, "bad"));
-        console.log ("hello");
-        console.log( getOccurrence(noSpace, "good"));
-        //newArray = compressArray(noSpace);// does the count but processes each review text seperately and doesnt add them all together 
-        //console.log(newArray);
+        bad = bad + (getOccurrence(noSpace, "bad"));
+       // console.log ("hello");
+        good = good + (getOccurrence(noSpace, "good"));
+        ratings = ratings +  rating ;
         
-        /*for (var a of newArray) { // trying to concatinate them all together to get one list
-           // longArray = longArray.concat(newArray[a]);
-            //find where the element is in the long array if at all
-            console.log(a.value);
-            //longArray = newArray[a];
-
-            var found = longArray.find(function(element){
-                //returns is the elements value exists in new arrays value.
-              return element.value == a.value;
-            });
-              //if is doesnt exist in the long array
-              if (typeof found === "undefined") {
-                  //concatenate just the one element to the longArray(the word count)
-                  longArray.concat(found);
-              } else {
-                //add the value for that word in newArrayto the count for that wordin long array
-                newArray = newArray.value + longArray.found;
-                
-              }
-           // console.log(longArray[a]);
-        } */
    }
-}
-  // console.log(longArray);
-    //thisarray = compressArray(longArray);
+  console.log("bad: " + bad);
+  console.log("good: " + good);
+  ratings = ratings / reviewText[i].reviews.length;
+  console.log("ratings: " +ratings);
+  //console.log ( reviewText[i].reviews.length)
 
+  //realData.push({"bad:" bad, "good":good, "ratings":ratings});
+}
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
 var RFRegression = require('ml-random-forest').RandomForestRegression;
 
+ dataset = realData;
+
+ /*dataset = [
+     [1, 1, 2.8],
+     [0, 2, 3.625],
+    [0, 4, 3.6666666666666665],
+    [0, 1, 5],
+     [1, 1, 4.5],
+     [1, 3, 4.333333333333333],
+     [1, 3, 3.625],
+     [0, 1, 4.25],
+     [0, 0, 4.375],
+     [0, 3, 3.7142857142857144],
+     [1, 2, 4],
+     [1, 0, 4.857142857142857],
+     [0, 1, 2.875],
+     [0, 0, 4.375],
+     [0, 0, 4.125],
+     [0, 0, 4.875],
+     [1, 1, 4],
+     [0, 3, 4.375],
+     [0, 0, 4.5],
+     [1, 0, 2.875],
+     [0, 0, 4.75],
+     [0, 1, 4.625],
+     [1, 2, 4.375],
+     [0, 0, 4.25],
+     [1, 0, 3.75],
+     [0, 1, 4.25],
+     [1, 2, 4],
+     [1, 0, 3.625],
+     [0, 1, 4.375],
+     [0, 2, 4.5],
+     [0, 0, 5],
+     [0, 7, 4.625],
+     [0, 1, 4.5],
+     [0, 2, 4.714285714285714],
+     [2, 3, 4],
+     [0, 2, 4.5],
+     [0, 1, 4.625],
+     [2, 1, 3.625],
+     [0, 1, 4.625],
+     [0, 2, 4.25],
+     [1, 1, 3.75],
+     [0, 3, 4.75],
+     [3, 5, 4.625],
+     [0, 3, 2.5],
+     [0, 0, 4.5],
+     [0, 0, 4.25],
+     [1, 4, 4.875],
+     [1, 3, 4.375],
+     [0, 3, 4.625],
+     [0, 5, 4.875],
+     [0, 0, 5],
+     [0, 1, 4.375],
+     [0, 2, 4.125],
+     [0, 1, 4.125],
+     [0, 0, 5],
+     [0, 0, 3.6666666666666665],
+     [0, 1, 2.75],
+     [0, 0, 5],
+     [0, 0, 4.375],
+     [0, 0, 3.5],
+     [0, 0, 3.6],
+     [0, 0, 4.5],
+     [0, 0, 4.25],
+     [1, 0, 3],
+     [1, 0, 4.5],
+     [1, 2, 4.75],
+     [1, 0, 4.5],
+     [0, 0, 4.875],
+     [0, 3, 4.166666666666667],
+     [0, 3, 4.375],
+     [0, 1, 5],
+     [0, 3, 4.375],
+     [0, 2, 4.125]
+ ];*/
+
 var dataset = [
     //number of times the word is used 
-    [2, 120, 1.2],
+    [2, 120, 1.223333333333333222],
     [2, 88, 2.3],
     [2, 91, 4.6],
     [2, 98, 3.5],
@@ -178,21 +172,22 @@ var dataset = [
     [2, 70, 3.5],
     [2, 65, 3.5],
     [2, 95, 3.4],
-    [2, 80, 4.7]/*,
-    [2, 73, 78, 2.6],
-    [2, 89, 96, 4.5],
-    [2, 75, 68, 3.8],
-    [2, 90, 93, 3.8],
-    [2, 92, 86, 1.1],
-    [2, 83, 77, 4.1],
-    [2, 86, 90, 2.2],
-    [2, 82, 89, 3.2],
-    [2, 83, 85, 3.2],
-    [2, 83, 71, 3.6],
-    [2, 93, 95, 4]*/
+    [2, 80, 4.7],
+    [2, 73, 2.6],
+    [2, 89, 4.5],
+    [2, 75, 3.8],
+    [2, 90, 3.8],
+    [2, 92, 1.1],
+    [2, 83, 4.1],
+    [2, 86, 2.2],
+    [2, 82, 3.2],
+    [2, 83, 3.2],
+    [2, 83, 3.6],
+    [2, 93, 4]
 ];
 
-var trainingSet = new Array(dataset.length);
+
+ var trainingSet = new Array(dataset.length);
 var predictions = new Array(dataset.length);
 
 for (var i = 0; i < dataset.length; ++i) {
@@ -210,7 +205,7 @@ var options = {
 var regression = new RFRegression(options);
 regression.train(trainingSet, predictions);
 var result = regression.predict(trainingSet);
-//console.log(result);
+console.log(result);
 
 var nameForSocket = [];
 
