@@ -48,10 +48,12 @@ function setUpEventHandlers() {
         socket.emit("findItem", $("#searchText").val());
     });
 
-    $("#searchResults tbody tr").click(function() {
-        console.log("The index is: " +  $(this).index() );
+    $("#searchResults tbody tr").click(function () {
+        console.log("The index is: " + $(this).index());
         var currentStudent = $(this).index();
     });
+
+    // Makes the body hidden until everything is loaded.
     $("body").prop("hidden", false);
 }
 
