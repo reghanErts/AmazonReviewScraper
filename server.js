@@ -86,8 +86,7 @@ function compressArray(original) {
     }
 
     return compressed;
->>>>>>> 6d3aac5cbc6cd862a42d9fa4d6bc2aeba59a87bd
-};
+}
 
 /*var testArray = new Array("you", "are", "cool", "and", "all", "cool");
 var newArray = compressArray(testArray);
@@ -262,6 +261,23 @@ client.connect(function(err){
         console.log("Database is up");
     }
 });
+//Start of database manipulation functions
+
+function addSingleDocument(objectPassed){ //pass a single object to be added
+    db.collection("words").insertOne(objectPassed);
+}
+
+function addManyDocument(objectList){ //pass an array of objects to be added
+    objectList.forEach(function(element){
+        db.collection("words").insertOne(element);
+    });
+}
+
+function printDatabase(){ //prints the cursor, not completed yet!
+    console.log(db.collection("words").find({}));
+}
+
+//End of database manipulation functions
 
 server.listen(80, function () {
     console.log("Server with socket.io is ready.");
