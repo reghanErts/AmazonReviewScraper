@@ -52,6 +52,7 @@ function setUpEventHandlers() {
         console.log("The index is: " +  $(this).index() );
         var currentStudent = $(this).index();
     });
+    $("body").prop("hidden", false);
 }
 
 $(setUpEventHandlers);
