@@ -220,10 +220,9 @@ io.on("connection", function (socket) {
         console.log(nameForSocket[socket.id] + "disconnected");
     });
 
-
-
     // The client has requested to find a product.
-    socket.on("findItem", function (InfoFromClient) {
+    socket.on("findItem", function (ClientMessage) {
+        let InfoFromClient = sanitizeHtml(ClientMessage);
         // The product must be at least 2 letters long.
         if (data[InfoFromClient] !== "undefined" && InfoFromClient.length > 2) {
             // We want to limit data transfer, and client knowledge of how many items we have, and where they are.
@@ -231,6 +230,7 @@ io.on("connection", function (socket) {
             let productPos = []
             // Find all products that match what the client sent.
             for (let i = 0; i < reviewText.length; i++) {
+                // Make sure the name exists before trying to check if it contains what the client is looking for.
                 if (typeof reviewText[i].name !== "undefined" &&
                     reviewText[i].name.toLowerCase().includes(InfoFromClient.toLowerCase())) {
                     productNames.push(reviewText[i].name);
