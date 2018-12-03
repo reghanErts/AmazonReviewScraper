@@ -263,18 +263,18 @@ client.connect(function(err){
 });
 //Start of database manipulation functions
 
-function addSingleDocument(objectPassed){ //pass a single object to be added
-    db.collection("words").insertOne(objectPassed);
-}
-
-function addManyDocument(objectList){ //pass an array of objects to be added
-    objectList.forEach(function(element){
-        db.collection("words").insertOne(element);
+function addDocuments(objectList){ //pass an array of objects to be added
+    db.collection("words").insertMany(objectList, function(err, res){
+        if(err) throw err;
+        console.log(res.insertedCount + " documents inserted.");
     });
 }
 
-function printDatabase(){ //prints the cursor, not completed yet!
-    console.log(db.collection("words").find({}));
+function getDocuments(){ //Gets contents of whole table (Just prints for now)
+    db.collection("words").find({}).toArray(function(err, result){
+        if(err) throw err;
+        console.log(result);
+    });
 }
 
 //End of database manipulation functions
