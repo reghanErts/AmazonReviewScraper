@@ -12,6 +12,16 @@ var io = socketio(server);
 
 var sanitizeHtml = require("sanitize-html");
 
+var mongodb = require("mongodb");
+
+var MongoClient = mongodb.MongoClient;
+
+var ObjectID = mongodb.ObjectID;
+
+var client = new MongoClient("mongodb://localhost", { useNewUrlParser: true });
+
+var db;
+
 app.use(express.static("pub"));
 
 // get review array-> find review_text-> split the long 
@@ -165,7 +175,9 @@ io.on("connection", function (socket) {
 
     socket.on("disconnect", function () {
         console.log(nameForSocket[socket.id] + "disconnected");
-    })
+    });
+
+
 
     // The client has requested to find a product.
     socket.on("findItem", function (InfoFromClient) {
@@ -196,7 +208,15 @@ io.on("connection", function (socket) {
             // The server has no matches for what the client requested.
             socket.emit("searchError", "The product name you're searching for is too short.");
         }
-    })
+    });
+});
+
+client.connect(function(err){
+    if(err != null) throw err;
+    else{
+        db = client.db("keywords");
+        console.log("Database is up");
+    }
 });
 
 server.listen(80, function () {
