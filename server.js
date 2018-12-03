@@ -216,10 +216,9 @@ io.on("connection", function (socket) {
         console.log(nameForSocket[socket.id] + "disconnected");
     });
 
-
-
     // The client has requested to find a product.
-    socket.on("findItem", function (InfoFromClient) {
+    socket.on("findItem", function (ClientMessage) {
+        let InfoFromClient = sanitizeHtml(ClientMessage);
         // The product must be at least 2 letters long.
         if (data[InfoFromClient] !== "undefined" && InfoFromClient.length > 2) {
             // We want to limit data transfer, and client knowledge of how many items we have, and where they are.
@@ -227,6 +226,7 @@ io.on("connection", function (socket) {
             let productPos = []
             // Find all products that match what the client sent.
             for (let i = 0; i < reviewText.length; i++) {
+                // Make sure the name exists before trying to check if it contains what the client is looking for.
                 if (typeof reviewText[i].name !== "undefined" &&
                     reviewText[i].name.toLowerCase().includes(InfoFromClient.toLowerCase())) {
                     productNames.push(reviewText[i].name);
@@ -257,6 +257,30 @@ client.connect(function(err){
         console.log("Database is up");
     }
 });
+//Start of database manipulation functions
+
+function addDocuments(objectList){ //pass an array of objects to be added
+    db.collection("words").insertMany(objectList, function(err, res){
+        if(err) throw err;
+        console.log(res.insertedCount + " documents inserted.");
+    });
+}
+
+function getDocuments(){ //Gets contents of whole table (Just prints for now)
+    db.collection("words").find({}).toArray(function(err, result){
+        if(err) throw err;
+        console.log(result);
+    });
+}
+
+function purgeDocuments(){ //Deletes all dcouments in table. Use to purge test data!
+    db.collection("words").drop(function(err, deleteOkay){
+        if(err) throw err;
+        if(deleteOkay) console.log("*!*Documents have been purged*!*");
+    });
+}
+
+//End of database manipulation functions
 
 server.listen(80, function () {
     console.log("Server with socket.io is ready.");
