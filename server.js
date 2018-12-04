@@ -255,6 +255,7 @@ client.connect(function(err){
     else{
         db = client.db("keywords");
         console.log("Database is up");
+        purgeDocuments();
     }
 });
 //Start of database manipulation functions
@@ -266,10 +267,11 @@ function addDocuments(objectList){ //pass an array of objects to be added
     });
 }
 
-function getDocuments(){ //Gets contents of whole table (Just prints for now)
+function getDocuments(){ //Gets contents of whole table, returns result
     db.collection("words").find({}).toArray(function(err, result){
         if(err) throw err;
         console.log(result);
+        return result;
     });
 }
 
