@@ -255,7 +255,6 @@ client.connect(function(err){
     else{
         db = client.db("keywords");
         console.log("Database is up");
-        purgeDocuments();
     }
 });
 //Start of database manipulation functions
