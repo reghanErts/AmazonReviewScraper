@@ -44,6 +44,7 @@ for(var i = 0; i < reviewText.length; i++ ){
     var bad = 0;
     var good =0;
     var ratings = 0;
+    var name = reviewText[i].name;
     for( var j = 0; j < reviewText[i].reviews.length; j++) {
         var process = reviewText[i].reviews[j].review_text;// prints the review text only
         var rating = reviewText[i].reviews[j].review_rating;
@@ -68,14 +69,47 @@ for(var i = 0; i < reviewText.length; i++ ){
         ratings = ratings +  rating ;
         
    }
+    console.log(name);
   console.log("bad: " + bad);
   console.log("good: " + good);
   ratings = ratings / reviewText[i].reviews.length;
   console.log("ratings: " +ratings);
+  console.log(name);
   //console.log ( reviewText[i].reviews.length)
 
   //realData.push({"bad:" bad, "good":good, "ratings":ratings});
+
 }
+/*var express = require("express");
+var server = express();
+server.use(express.static("pub"));
+var bodyParser = require("body-parser");
+server.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+var MLR = require('ml-regression-multivariate-linear');
+
+var dataInputs = [];
+var dataOutputs = [];
+
+for (let i = 0; i < 100; i++) {
+    var x1 = bad;//Math.random() * 10;
+    var x2 =  good;//Math.random() * 10;
+
+    var y =  ratings;//2 * x1 + 4 * x2 + (2 * Math.random() - 1); //y = 2*x1 + 4*x2 + randomNoise
+
+    dataInputs.push([x1, x2]);
+    dataOutputs.push([y]);
+}
+
+var mlr = new MLR(dataInputs, dataOutputs);
+
+console.log(mlr.predict([time, the])); //Should get roughly 2*3 + 4*3 = 18
+console.log(mlr.predict([bad, good])); //Should get roughly 2*1 + 4*8 = 34
+console.log(mlr.predict([4, 0])); //Should get roughly 2*4 + 4*0 = 8
+*/
+
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
 var RFRegression = require('ml-random-forest').RandomForestRegression;
 
@@ -155,7 +189,7 @@ var RFRegression = require('ml-random-forest').RandomForestRegression;
      [0, 1, 5],
      [0, 3, 4.375],
      [0, 2, 4.125]
- ];*/
+ ];
 
 var dataset = [
     //number of times the word is used 
@@ -205,7 +239,7 @@ var options = {
 var regression = new RFRegression(options);
 regression.train(trainingSet, predictions);
 var result = regression.predict(trainingSet);
-console.log(result);
+console.log(result);*/
 
 var nameForSocket = [];
 
@@ -279,9 +313,7 @@ function purgeDocuments(){ //Deletes all dcouments in table. Use to purge test d
         if(deleteOkay) console.log("*!*Documents have been purged*!*");
     });
 }
-
 //End of database manipulation functions
-
 server.listen(80, function () {
     console.log("Server with socket.io is ready.");
 });
