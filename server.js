@@ -66,7 +66,6 @@ for (var i = 0; i < reviewText.length; i++) {
         good = good + (getOccurrence(noSpace, "good"));
         ratings = ratings + rating;
     }
-<<<<<<< HEAD
 
     console.log(name);
     console.log("bad: " + bad);
@@ -78,21 +77,6 @@ for (var i = 0; i < reviewText.length; i++) {
     ////HERE push new input/output
     dataInputs.push([bad, good]);
     dataOutputs.push([ratings]);
-
-    //realData.push({ bad,good,ratings});
-=======
-
-    console.log(name);
-    console.log("bad: " + bad);
-    console.log("good: " + good);
-    ratings = ratings / reviewText[i].reviews.length;
-    console.log("ratings: " + ratings);
-    //console.log (reviewText[i].reviews.length)
-
-    ////HERE push new input/output
-    dataInputs.push([bad, good]);
-    dataOutputs.push([ratings]);
->>>>>>> 608bdc7f02012cafe61e0900997c4700a0d66183
 
 }
 var MLR = require('ml-regression-multivariate-linear');
@@ -154,17 +138,6 @@ server.use(bodyParser.urlencoded({
     extended: true
 }));
 
-<<<<<<< HEAD
-console.log(mlr.predict([badSearch, goodSearch])); //Should get roughly 2*3 + 4*3 = 18
-console.log(mlr.predict([bad, good])); //Should get roughly 2*1 + 4*8 = 34
-console.log(mlr.predict([4, 0])); //Should get roughly 2*4 + 4*0 = 8
-
-
-//import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
-var RFRegression = require('ml-random-forest').RandomForestRegression;
-
-=======
->>>>>>> 608bdc7f02012cafe61e0900997c4700a0d66183
 //dataset = realData;
 
 /*dataset = [
@@ -286,11 +259,6 @@ io.on("connection", function (socket) {
     });
 });
 
-<<<<<<< HEAD
-//.post function (){
-// loop through that info to get the number of bads and the number of goods 
-// to predict the star rating and send it to the user.
-=======
 /*$.post function  input (){
         // loop through that info to get the number of bads and the number of goods 
         // to predict the star rating and send it to the user.
@@ -310,7 +278,6 @@ io.on("connection", function (socket) {
 
 }*/
 
->>>>>>> 608bdc7f02012cafe61e0900997c4700a0d66183
 //}
 client.connect(function (err) {
     if (err != null) throw err;
@@ -345,9 +312,5 @@ function purgeDocuments() { //Deletes all dcouments in table. Use to purge test 
 //End of database manipulation functions
 server.listen(80, function () {
     console.log("Server with socket.io is ready.");
-<<<<<<< HEAD
-});
-=======
 });
             
->>>>>>> 608bdc7f02012cafe61e0900997c4700a0d66183
