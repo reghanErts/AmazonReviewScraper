@@ -40,10 +40,14 @@ var bodyparser = require('body-parser');
 //console.log( count);
 var realData = [];
 
+//HERE define datainput / dataoutput arrays
+var dataInputs = [];
+var dataOutputs = [];
+
 for(var i = 0; i < reviewText.length; i++ ){
-    var bad = 1;
-    var good =1;
-    var ratings = 1;
+    var bad = 0;
+    var good =0;
+    var ratings = 0;
     var name = reviewText[i].name;
     for( var j = 0; j < reviewText[i].reviews.length; j++) {
         var processedText = reviewText[i].reviews[j].review_text;// prints the review text only
@@ -65,21 +69,30 @@ for(var i = 0; i < reviewText.length; i++ ){
         good = good + (getOccurrence(noSpace, "good"));
         ratings = ratings +  rating ;
    }
-  console.log(name);
+
+   console.log(name);
   console.log("bad: " + bad);
   console.log("good: " + good);
   ratings = ratings / reviewText[i].reviews.length;
   console.log("ratings: " +ratings);
   //console.log (reviewText[i].reviews.length)
 
-  realData.push({ bad,good,ratings});
+  ////HERE push new input/output
+   dataInputs.push([bad, good]);
+   dataOutputs.push([ratings]);
+
+  //realData.push({ bad,good,ratings});
 
 }
+var MLR = require('ml-regression-multivariate-linear');
+var mlr = new MLR(dataInputs, dataOutputs);
 // to parse new enteries
 var fs = require('fs');
 var datas = fs.readFileSync('.\\scrape\\data.json', 'utf8');
 var reviewNewText = JSON.parse(datas);
 var bodyparser = require('body-parser');
+
+
 for (var search = 0; search < reviewNewText.length; search++){
     var badSearch = 0;
     var goodSearch = 0;
@@ -117,7 +130,8 @@ for (var search = 0; search < reviewNewText.length; search++){
     console.log("good: " + goodSearch);
     ratingsSearch = ratingsSearch / reviewNewText[search].reviews.length;
     console.log("ratings: " + ratingsSearch);
-
+    
+    console.log(mlr.predict([badSearch, goodSearch]));
     //console.log(mlr.predict(searchProcess));
 }
 
@@ -129,26 +143,6 @@ server.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var MLR = require('ml-regression-multivariate-linear');
-
-var dataInputs = [];
-var dataOutputs = [];
-
-for (let i = 0; i < reviewText.length; i++) {
-    var x1 = bad[i];//Math.random() * 10;
-    var x2 =  good[i];//Math.random() * 10;
-
-    var y =  ratings[i];//2 * x1 + 4 * x2 + (2 * Math.random() - 1); //y = 2*x1 + 4*x2 + randomNoise
-
-    dataInputs.push([x1, x2]);
-    dataOutputs.push([y]);
-}
-var searchSearch = [];
-var mlr = new MLR(dataInputs, dataOutputs);
-
-for ( var searchs = 0 ; searchs < reviewNextText.length; searchs++){
-    console.log(mlr.predict([badSearch[searchs], goodSearch[searchs]));
-}
 console.log(mlr.predict([badSearch, goodSearch])); //Should get roughly 2*3 + 4*3 = 18
 console.log(mlr.predict([bad, good])); //Should get roughly 2*1 + 4*8 = 34
 console.log(mlr.predict([4, 0])); //Should get roughly 2*4 + 4*0 = 8
