@@ -222,6 +222,12 @@ for (var search = 0; search < reviewNewText.length; search++) {
 var nameForSocket = [];
 
 io.on("connection", function (socket) {
+    console.log("someone connected");
+
+    socket.on("disconnect", function () {
+        console.log(nameForSocket[socket.id] + "disconnected");
+    });
+
     // The client has requested to find a product.
     socket.on("findItem", function (ClientMessage) {
         let InfoFromClient = sanitizeHtml(ClientMessage);
