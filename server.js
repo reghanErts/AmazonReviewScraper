@@ -88,8 +88,8 @@ for (var i = 0; i < reviewText.length; i++) {
 }
 var MLR = require('ml-regression-multivariate-linear');
 var mlr = new MLR(dataInputs, dataOutputs);
+
 // to parse new enteries
-var fs = require('fs');
 var datas = fs.readFileSync('.\\scrape\\data.json', 'utf8');
 var reviewNewText = JSON.parse(datas);
 var bodyparser = require('body-parser');
@@ -229,74 +229,8 @@ var RFRegression = require('ml-random-forest').RandomForestRegression;
      [0, 1, 5],
      [0, 3, 4.375],
      [0, 2, 4.125]
- ];
+ ];*/
 
-/*dataset = [
-    //number of times the word is used 
-    [2, 120, 1.223333333333333222],
-    [2, 88, 2.3],
-    [2, 91, 4.6],
-    [2, 98, 3.5],
-    [2, 66, 3.4],
-    [2, 46, 4.6],
-    [2, 74, 2.1],
-    [2, 56, 3.5],
-    [2, 79, 3.6],
-    [2, 70, 5.0],
-    [2, 70, 3.5],
-    [2, 65, 3.5],
-    [2, 95, 3.4],
-    [2, 80, 4.7],
-    [2, 73, 2.6],
-    [2, 89, 4.5],
-    [2, 75, 3.8],
-    [2, 90, 3.8],
-    [2, 92, 1.1],
-    [2, 83, 4.1],
-    [2, 86, 2.2],
-    [2, 82, 3.2],
-    [2, 83, 3.2],
-    [2, 83, 3.6],
-    [2, 93, 4],
-      [2, 70, 5.0],
-      [2, 70, 3.5],
-      [2, 65, 3.5],
-      [2, 95, 3.4],
-      [2, 80, 4.7],
-      [2, 73, 2.6],
-      [2, 89, 4.5],
-      [2, 75, 3.8],
-      [2, 90, 3.8],
-      [2, 92, 1.1],
-      [2, 83, 4.1],
-      [2, 86, 2.2],
-      [2, 82, 3.2],
-      [2, 83, 3.2],
-      [2, 83, 3.6],
-      [2, 93, 4]
-];*/
-
-
-/*var trainingSet = new Array(dataset.length);
-var predictions = new Array(dataset.length);
-
-for (var i = 0; i < dataset.length; ++i) {
-    trainingSet[i] = dataset[i].slice(0, 3);
-    predictions[i] = dataset[i][2];
-}
-
-var options = {
-    seed:3,
-    maxFeatures: 2,
-    replacement: false,
-    nEstimators: 200
-};
-
-var regression = new RFRegression(options);
-regression.train(trainingSet, predictions);
-var result = regression.predict(trainingSet);
-console.log(result);
-*/
 var nameForSocket = [];
 
 io.on("connection", function (socket) {
