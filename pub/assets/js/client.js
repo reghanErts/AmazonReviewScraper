@@ -20,8 +20,10 @@ socket.on("reviews", function (dataFromServer) {
     $('#searchResults').hide();
     clearSearch();
     console.log("Reviews.");
-    console.log(dataFromServer);
+    console.log();
+    for (let i = 0; i < dataFromServer.reviews.length; i++) {
 
+    }
 });
 
 // Server couldn't find any products containing the word (or words).
