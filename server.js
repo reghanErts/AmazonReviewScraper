@@ -143,7 +143,6 @@ for (var search = 0; search < reviewNewText.length; search++) {
     //console.log(mlr.predict(searchProcess));
 }
 
-
 /*dataset = [
      [1, 1, 2.8],
      [0, 2, 3.625],
