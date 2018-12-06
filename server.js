@@ -36,8 +36,10 @@ var data = fs.readFileSync('.\\scrape\\ExampleData.json', 'utf8');
 var reviewText = JSON.parse(data);
 var bodyparser = require('body-parser');
 
+//console.log(data);
 
-//HERE define datainput / dataoutput arrays
+//console.log(reviewText[0].reviews);
+//console.log( count);
 var dataInputs = [];
 var dataOutputs = [];
 
@@ -82,11 +84,21 @@ for (var i = 0; i < reviewText.length; i++) {
 var MLR = require('ml-regression-multivariate-linear');
 var mlr = new MLR(dataInputs, dataOutputs);
 
+/*var express = require("express");
+var server = express();
+server.use(express.static("pub"));
+var bodyParser = require("body-parser");
+server.use(bodyParser.urlencoded({
+    extended: true
+}));*/
+
+var MLR = require('ml-regression-multivariate-linear');
+var mlr = new MLR(dataInputs, dataOutputs);
+
 // to parse new enteries
 var datas = fs.readFileSync('.\\scrape\\data.json', 'utf8');
 var reviewNewText = JSON.parse(datas);
 var bodyparser = require('body-parser');
-
 
 for (var search = 0; search < reviewNewText.length; search++) {
     var badSearch = 0;
@@ -130,21 +142,12 @@ for (var search = 0; search < reviewNewText.length; search++) {
     //console.log(mlr.predict(searchProcess));
 }
 
-var express = require("express");
-var server = express();
-server.use(express.static("pub"));
-var bodyParser = require("body-parser");
-server.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-//dataset = realData;
 
 /*dataset = [
      [1, 1, 2.8],
      [0, 2, 3.625],
-     [0, 4, 3.6666666666666665],
-     [0, 1, 5],
+    [0, 4, 3.6666666666666665],
+    [0, 1, 5],
      [1, 1, 4.5],
      [1, 3, 4.333333333333333],
      [1, 3, 3.625],
@@ -214,9 +217,18 @@ server.use(bodyParser.urlencoded({
      [0, 1, 5],
      [0, 3, 4.375],
      [0, 2, 4.125]
- ];*/
+ ];
+
+*/
+var nameForSocket = [];
 
 io.on("connection", function (socket) {
+    console.log("someone connected");
+
+    socket.on("disconnect", function () {
+        console.log(nameForSocket[socket.id] + "disconnected");
+    });
+
     // The client has requested to find a product.
     socket.on("findItem", function (ClientMessage) {
         let InfoFromClient = sanitizeHtml(ClientMessage);
@@ -251,26 +263,6 @@ io.on("connection", function (socket) {
     });
 });
 
-/*$.post function  input (){
-        // loop through that info to get the number of bads and the number of goods 
-        // to predict the star rating and send it to the user.
-        //get input
-    var inputProcess = input.split(" ");
-    var toLowerInput = inputProcess.map((eachWord) => eachWord.toLowerCase());
-    var noPucInput = toLowerInput.map((eachWord) => eachWord.replace(/[.,\/#!$%\^&\*;:{}=\-_'~()]/g, ''));
-    var noSpaceInput = noPucInput.map((eachWord) => eachWord.replace(/\s+/g, ''));
-
-    function getOccurrenceInput(array, value) {
-        var count = 0;
-        array.forEach((v) => (v === value && count++));
-        return count;
-    }
-    badInput = badInput + (getOccurrenceInput(noSpaceInput, "bad"));
-    goodInput = goodInput + (getOccurrenceInput(noSpaceInput, "good"));
-
-}*/
-
-//}
 client.connect(function (err) {
     if (err != null) throw err;
     else {
@@ -305,4 +297,12 @@ function purgeDocuments() { //Deletes all dcouments in table. Use to purge test 
 server.listen(80, function () {
     console.log("Server with socket.io is ready.");
 });
-            
+var express = require("express");
+var server = express();
+server.use(express.static("pub"));
+var bodyParser = require("body-parser");
+server.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+var MLR = require('ml-regression-multivariate-linear');
