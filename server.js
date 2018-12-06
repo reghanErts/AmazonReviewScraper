@@ -69,12 +69,12 @@ for(var i = 0; i < reviewText.length; i++ ){
         ratings = ratings +  rating ;
         
    }
-    console.log(name);
-  console.log("bad: " + bad);
-  console.log("good: " + good);
-  ratings = ratings / reviewText[i].reviews.length;
-  console.log("ratings: " +ratings);
-  console.log(name);
+//     console.log(name);
+//   console.log("bad: " + bad);
+//   console.log("good: " + good);
+//   ratings = ratings / reviewText[i].reviews.length;
+//   console.log("ratings: " +ratings);
+//   console.log(name);
   //console.log ( reviewText[i].reviews.length)
 
   //realData.push({"bad:" bad, "good":good, "ratings":ratings});
@@ -241,15 +241,7 @@ regression.train(trainingSet, predictions);
 var result = regression.predict(trainingSet);
 console.log(result);*/
 
-var nameForSocket = [];
-
 io.on("connection", function (socket) {
-    console.log("someone connected");
-
-    socket.on("disconnect", function () {
-        console.log(nameForSocket[socket.id] + "disconnected");
-    });
-
     // The client has requested to find a product.
     socket.on("findItem", function (ClientMessage) {
         let InfoFromClient = sanitizeHtml(ClientMessage);
@@ -296,14 +288,14 @@ client.connect(function(err){
 function addDocuments(objectList){ //pass an array of objects to be added
     db.collection("words").insertMany(objectList, function(err, res){
         if(err) throw err;
-        console.log(res.insertedCount + " documents inserted.");
+        //console.log(res.insertedCount + " documents inserted.");
     });
 }
 
 function getDocuments(){ //Gets contents of whole table, returns result
     db.collection("words").find({}).toArray(function(err, result){
         if(err) throw err;
-        console.log(result);
+        //console.log(result);
         return result;
     });
 }

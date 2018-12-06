@@ -21,6 +21,7 @@ socket.on("reviews", function (dataFromServer) {
     clearSearch();
     console.log("Reviews.");
     console.log(dataFromServer);
+
 });
 
 // Server couldn't find any products containing the word (or words).
@@ -48,9 +49,9 @@ function setUpEventHandlers() {
         socket.emit("findItem", $("#searchText").val());
     });
 
-    $("#searchResults tbody tr").click(function () {
-        console.log("The index is: " + $(this).index());
-        var currentStudent = $(this).index();
+    $("#bgc").on('click', 'table tr td', function() {
+        // https://stackoverflow.com/questions/13514878/jquery-click-handler-not-working-in-a-table
+        socket.emit("findItem", $(this).html())
     });
 
     // Makes the body hidden until everything is loaded.
