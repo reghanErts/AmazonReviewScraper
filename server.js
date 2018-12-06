@@ -69,11 +69,11 @@ for (var i = 0; i < reviewText.length; i++) {
         ratings = ratings + rating;
     }
 
-    console.log(name);
-    console.log("bad: " + bad);
-    console.log("good: " + good);
+    // console.log(name);
+    // console.log("bad: " + bad);
+    // console.log("good: " + good);
     ratings = ratings / reviewText[i].reviews.length;
-    console.log("ratings: " + ratings);
+    // console.log("ratings: " + ratings);
     //console.log (reviewText[i].reviews.length)
 
     ////HERE push new input/output
@@ -130,15 +130,16 @@ for (var search = 0; search < reviewNewText.length; search++) {
     if (nameSearch == "undefined") {
         nameSearch = "blank";
     } else {
-        console.log(nameSearch);
+        // console.log(nameSearch);
     }
     // console.log(nameSearch);
-    console.log("bad: " + badSearch);
-    console.log("good: " + goodSearch);
+    // console.log("bad: " + badSearch);
+    // console.log("good: " + goodSearch);
     ratingsSearch = ratingsSearch / reviewNewText[search].reviews.length;
-    console.log("ratings: " + ratingsSearch);
+    // console.log("ratings: " + ratingsSearch);
 
-    console.log(mlr.predict([badSearch, goodSearch]));
+    //console.log();
+    mlr.predict([badSearch, goodSearch]);
     //console.log(mlr.predict(searchProcess));
 }
 
@@ -220,15 +221,8 @@ for (var search = 0; search < reviewNewText.length; search++) {
  ];
 
 */
-var nameForSocket = [];
 
 io.on("connection", function (socket) {
-    console.log("someone connected");
-
-    socket.on("disconnect", function () {
-        console.log(nameForSocket[socket.id] + "disconnected");
-    });
-
     // The client has requested to find a product.
     socket.on("findItem", function (ClientMessage) {
         let InfoFromClient = sanitizeHtml(ClientMessage);
@@ -282,7 +276,7 @@ function addDocuments(objectList) { //pass an array of objects to be added
 function getDocuments() { //Gets contents of whole table, returns result
     db.collection("words").find({}).toArray(function (err, result) {
         if (err) throw err;
-        console.log(result);
+        // console.log(result);
         return result;
     });
 }
@@ -297,6 +291,7 @@ function purgeDocuments() { //Deletes all dcouments in table. Use to purge test 
 server.listen(80, function () {
     console.log("Server with socket.io is ready.");
 });
+
 var express = require("express");
 var server = express();
 server.use(express.static("pub"));
