@@ -18,7 +18,9 @@ var MongoClient = mongodb.MongoClient;
 
 var ObjectID = mongodb.ObjectID;
 
-var client = new MongoClient("mongodb://localhost", { useNewUrlParser: true });
+var client = new MongoClient("mongodb://localhost", {
+    useNewUrlParser: true
+});
 
 var db;
 
@@ -44,44 +46,44 @@ var realData = [];
 var dataInputs = [];
 var dataOutputs = [];
 
-for(var i = 0; i < reviewText.length; i++ ){
+for (var i = 0; i < reviewText.length; i++) {
     var bad = 0;
-    var good =0;
+    var good = 0;
     var ratings = 0;
     var name = reviewText[i].name;
-    for( var j = 0; j < reviewText[i].reviews.length; j++) {
-        var processedText = reviewText[i].reviews[j].review_text;// prints the review text only
+    for (var j = 0; j < reviewText[i].reviews.length; j++) {
+        var processedText = reviewText[i].reviews[j].review_text; // prints the review text only
         var rating = reviewText[i].reviews[j].review_rating;
         rating = parseFloat(rating);
-        
+
         //formatting
         var wordSplit = processedText.split(" "); // splits the long output string into single strings so my compressArray can process it
-       var toLower = wordSplit.map((eachWord)=>eachWord.toLowerCase());
-       var noPuc = toLower.map((eachWord)=>eachWord.replace(/[.,\/#!$%\^&\*;:{}=\-_'~()]/g,''));
-       var noSpace = noPuc.map((eachWord)=> eachWord.replace(/\s+/g, ''));
-    
-        function getOccurrence(array, value){
+        var toLower = wordSplit.map((eachWord) => eachWord.toLowerCase());
+        var noPuc = toLower.map((eachWord) => eachWord.replace(/[.,\/#!$%\^&\*;:{}=\-_'~()]/g, ''));
+        var noSpace = noPuc.map((eachWord) => eachWord.replace(/\s+/g, ''));
+
+        function getOccurrence(array, value) {
             var count = 0;
-            array.forEach((v) => (v === value && count ++));
+            array.forEach((v) => (v === value && count++));
             return count;
         }
         bad = bad + (getOccurrence(noSpace, "bad"));
         good = good + (getOccurrence(noSpace, "good"));
-        ratings = ratings +  rating ;
-   }
+        ratings = ratings + rating;
+    }
 
-   console.log(name);
-  console.log("bad: " + bad);
-  console.log("good: " + good);
-  ratings = ratings / reviewText[i].reviews.length;
-  console.log("ratings: " +ratings);
-  //console.log (reviewText[i].reviews.length)
+    console.log(name);
+    console.log("bad: " + bad);
+    console.log("good: " + good);
+    ratings = ratings / reviewText[i].reviews.length;
+    console.log("ratings: " + ratings);
+    //console.log (reviewText[i].reviews.length)
 
-  ////HERE push new input/output
-   dataInputs.push([bad, good]);
-   dataOutputs.push([ratings]);
+    ////HERE push new input/output
+    dataInputs.push([bad, good]);
+    dataOutputs.push([ratings]);
 
-  //realData.push({ bad,good,ratings});
+    //realData.push({ bad,good,ratings});
 
 }
 var MLR = require('ml-regression-multivariate-linear');
@@ -93,7 +95,7 @@ var reviewNewText = JSON.parse(datas);
 var bodyparser = require('body-parser');
 
 
-for (var search = 0; search < reviewNewText.length; search++){
+for (var search = 0; search < reviewNewText.length; search++) {
     var badSearch = 0;
     var goodSearch = 0;
     var ratingsSearch = 0;
@@ -130,7 +132,7 @@ for (var search = 0; search < reviewNewText.length; search++){
     console.log("good: " + goodSearch);
     ratingsSearch = ratingsSearch / reviewNewText[search].reviews.length;
     console.log("ratings: " + ratingsSearch);
-    
+
     console.log(mlr.predict([badSearch, goodSearch]));
     //console.log(mlr.predict(searchProcess));
 }
@@ -146,12 +148,12 @@ server.use(bodyParser.urlencoded({
 console.log(mlr.predict([badSearch, goodSearch])); //Should get roughly 2*3 + 4*3 = 18
 console.log(mlr.predict([bad, good])); //Should get roughly 2*1 + 4*8 = 34
 console.log(mlr.predict([4, 0])); //Should get roughly 2*4 + 4*0 = 8
-    
+
 
 //import { RandomForestRegression as RFRegression} from 'node_modules/ml-random-forest';
 var RFRegression = require('ml-random-forest').RandomForestRegression;
 
- //dataset = realData;
+//dataset = realData;
 
 /*dataset = [
      [1, 1, 2.8],
@@ -339,37 +341,37 @@ io.on("connection", function (socket) {
 });
 
 //.post function (){
-    // loop through that info to get the number of bads and the number of goods 
-    // to predict the star rating and send it to the user.
+// loop through that info to get the number of bads and the number of goods 
+// to predict the star rating and send it to the user.
 //}
-client.connect(function(err){
-    if(err != null) throw err;
-    else{
+client.connect(function (err) {
+    if (err != null) throw err;
+    else {
         db = client.db("keywords");
         console.log("Database is up");
     }
 });
 //Start of database manipulation functions
 
-function addDocuments(objectList){ //pass an array of objects to be added
-    db.collection("words").insertMany(objectList, function(err, res){
-        if(err) throw err;
+function addDocuments(objectList) { //pass an array of objects to be added
+    db.collection("words").insertMany(objectList, function (err, res) {
+        if (err) throw err;
         console.log(res.insertedCount + " documents inserted.");
     });
 }
 
-function getDocuments(){ //Gets contents of whole table, returns result
-    db.collection("words").find({}).toArray(function(err, result){
-        if(err) throw err;
+function getDocuments() { //Gets contents of whole table, returns result
+    db.collection("words").find({}).toArray(function (err, result) {
+        if (err) throw err;
         console.log(result);
         return result;
     });
 }
 
-function purgeDocuments(){ //Deletes all dcouments in table. Use to purge test data!
-    db.collection("words").drop(function(err, deleteOkay){
-        if(err) throw err;
-        if(deleteOkay) console.log("*!*Documents have been purged*!*");
+function purgeDocuments() { //Deletes all dcouments in table. Use to purge test data!
+    db.collection("words").drop(function (err, deleteOkay) {
+        if (err) throw err;
+        if (deleteOkay) console.log("*!*Documents have been purged*!*");
     });
 }
 //End of database manipulation functions
