@@ -219,16 +219,13 @@ for (var search = 0; search < reviewNewText.length; search++) {
      [0, 2, 4.125]
  ];
 
+<<<<<<< HEAD
 */
 var nameForSocket = [];
 
+=======
+>>>>>>> 7b0e921d4a0f500dca1101aeb2ef56f944d009b8
 io.on("connection", function (socket) {
-    console.log("someone connected");
-
-    socket.on("disconnect", function () {
-        console.log(nameForSocket[socket.id] + "disconnected");
-    });
-
     // The client has requested to find a product.
     socket.on("findItem", function (ClientMessage) {
         let InfoFromClient = sanitizeHtml(ClientMessage);
