@@ -57,7 +57,7 @@ td, th {
 tbody tr:nth-child(even){background-color: #f2f2f2;}
 tbody tr:nth-child(odd){background-color: #A1A1A1;}
 
-tbody tr:hover {background-color: #00f800;}
+#searchResults tbody tr:hover {background-color: #00f800;}
 
 /* https://www.w3schools.com/howto/howto_js_topnav_responsive.asp */
 .Navigation {
