@@ -12,12 +12,18 @@ function clearSearch() {
 function showResults() {
     $("#Product").hide();
     $("#searchResults").show();
+    scrollTop();
 }
 
 // Show the product div.
 function showProduct() {
     $("#searchResults").hide();
     $("#Product").show();
+    scrollTop();
+}
+
+function scrollTop() {
+    window.scrollTo(0, 0);
 }
 
 // Overwrite print for easier console.log()
@@ -54,6 +60,7 @@ socket.on("reviews", function (dataFromServer) {
 
 // Server couldn't find any products containing the word (or words).
 socket.on("searchError", function (dataFromServer) {
+    scrollTop();
     $("#searchError").html(dataFromServer);
 });
 
