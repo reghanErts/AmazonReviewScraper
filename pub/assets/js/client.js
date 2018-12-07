@@ -22,6 +22,7 @@ function showProduct() {
     scrollTop();
 }
 
+// Jump to the top of the screen.
 function scrollTop() {
     window.scrollTo(0, 0);
 }
