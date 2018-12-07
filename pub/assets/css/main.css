@@ -55,6 +55,7 @@ td, th {
 
 #searchError {
     color:#fe0166;
+    text-shadow: 1px 1px #009700;
 }
 
 /* https://stackoverflow.com/questions/17388817/tr-background-change-with-nth-child-changes-thead-and-tfoot-as-well */
