@@ -8,11 +8,13 @@ function clearSearch() {
     $("#SearchText").trigger("blur");
 }
 
+// Show the search results div.
 function showResults() {
     $("#Product").hide();
     $("#searchResults").show();
 }
 
+// Show the product div.
 function showProduct() {
     $("#searchResults").hide();
     $("#Product").show();
@@ -34,10 +36,9 @@ socket.on("reviews", function (dataFromServer) {
     clearSearch();
     // Only clear product reviews when new ones are coming in.
     $("#ProductReviews").html("");
-    print(dataFromServer);
     // H2
     $("#ProductName").html(dataFromServer.name);
-    // Review Ratings
+    // Review Ratings. Given our parts came together better, this would also include "good" and "bad" occurances/percentages.
     let a = "<thead><tr><th>5 Star</th><th>4 Star</th><th>3 Star</th><th>2 Star</th><th>1 Star</th></tr></thead><tbody><tr>";
     for (let key in dataFromServer.ratings) {
         a += "<td>" + dataFromServer.ratings[key] + "</td>";
@@ -72,20 +73,22 @@ function updateTableChoose(dataFromServer) {
 
 function setUpEventHandlers() {
     $("#searchForm").submit(function (event) {
+        // Text won't automatically disappear, unless good data comes back.
         event.preventDefault();
         socket.emit("findItem", $("#searchText").val());
     });
 
+    // https://stackoverflow.com/questions/13514878/jquery-click-handler-not-working-in-a-table
+    // Clicking on a row in the search results table, will ask for that items details.
     $("#bgc").on('click', 'table tr td', function () {
-        // https://stackoverflow.com/questions/13514878/jquery-click-handler-not-working-in-a-table
         socket.emit("findItem", $(this).html())
     });
     showResults();
 
+    // Pressing back doesn't requery the server.
     $("#backButton").on('click', function () {
         showResults()
-    }
-    );
+    });
 
     // Makes the body hidden until everything is loaded.
     $("body").prop("hidden", false);
