@@ -79,7 +79,6 @@ for (var i = 0; i < reviewText.length; i++) {
     ////HERE push new input/output
     dataInputs.push([bad, good]);
     dataOutputs.push([ratings]);
-
 }
 var MLR = require('ml-regression-multivariate-linear');
 var mlr = new MLR(dataInputs, dataOutputs);
