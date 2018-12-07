@@ -82,6 +82,11 @@ function setUpEventHandlers() {
     });
     showResults();
 
+    $("#backButton").on('click', function () {
+        showResults()
+    }
+    );
+
     // Makes the body hidden until everything is loaded.
     $("body").prop("hidden", false);
 }

@@ -43,7 +43,7 @@ table {
 }
 
 thead {
-    background-color: #223177;
+    background-color: #243846;
     color: #ffffff;
 }
 
@@ -53,11 +53,19 @@ td, th {
     text-align: center;
 }
 
-/* https://stackoverflow.com/questions/17388817/tr-background-change-with-nth-child-changes-thead-and-tfoot-as-well */
-tbody tr:nth-child(even){background-color: #f2f2f2;}
-tbody tr:nth-child(odd){background-color: #A1A1A1;}
+#searchError {
+    color:#fe0166;
+}
 
-#searchResults tbody tr:hover {background-color: #00f800;}
+/* https://stackoverflow.com/questions/17388817/tr-background-change-with-nth-child-changes-thead-and-tfoot-as-well */
+tbody tr:nth-child(odd){background-color: #f2f2f2;}
+tbody tr:nth-child(even){background-color: #A1A1A1;}
+
+#searchResults tbody tr:hover {background-color: #009700;}
+
+#searchResults, #ProductRatings {
+    width:60%;
+}
 
 /* https://www.w3schools.com/howto/howto_js_topnav_responsive.asp */
 .Navigation {
@@ -88,4 +96,9 @@ tbody tr:nth-child(odd){background-color: #A1A1A1;}
 /* Hide the link that should open and close the topnav on small screens */
 .Navigation .icon {
     display: none;
+}
+
+#backButton {
+    background-color:#009700;
+    color: white;
 }
