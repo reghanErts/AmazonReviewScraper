@@ -22,7 +22,7 @@ function showProduct() {
     scrollTop();
 }
 
-// Jump to the top of the screen.
+// Jump to the top of the screen. https://stackoverflow.com/questions/1144805/scroll-to-the-top-of-the-page-using-javascript-jquery
 function scrollTop() {
     window.scrollTo(0, 0);
 }
