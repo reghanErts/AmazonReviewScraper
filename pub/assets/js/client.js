@@ -71,9 +71,7 @@ function updateTableChoose(dataFromServer) {
     // Top of the table.
     $("#searchResults").append("<thead><tr><th>Products</th></tr></thead><tbody>");
     for (var i = 0; i < dataFromServer.length; i++) {
-        let tableText = ""
-        tableText += "<tr><td>" + dataFromServer[i] + "</td></tr>";
-        $("#searchResults").append(tableText);
+        $("#searchResults").append("<tr><td>" + dataFromServer[i] + "</td></tr>");
     }
     $("#searchResults").append("</tbody>");
     showResults();
@@ -88,16 +86,16 @@ function setUpEventHandlers() {
 
     // https://stackoverflow.com/questions/13514878/jquery-click-handler-not-working-in-a-table
     // Clicking on a row in the search results table, will ask for that items details.
-    $("#bgc").on('click', 'table tr td', function () {
+    $("#searchResults").on('click', 'tr td', function () {
         socket.emit("findItem", $(this).html())
     });
-    showResults();
 
     // Pressing back doesn't requery the server.
     $("#backButton").on('click', function () {
         showResults()
     });
-
+    
+    showResults();
     // Makes the body hidden until everything is loaded.
     $("body").prop("hidden", false);
 }
