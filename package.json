@@ -31,7 +31,7 @@
     "npm": "^6.4.1",
     "random-js": "^1.0.8",
     "request": "^2.88.0",
-    "sanitize-html": "^1.19.1",
+    "sanitize-html": "^2.3.2",
     "socket.io": "^2.1.1"
   }
 }
